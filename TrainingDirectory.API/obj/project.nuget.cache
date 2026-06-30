@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "y4T6oOV2BeM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TrainingDirectory.API\\TrainingDirectory.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\priyank.jakharia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.8\\microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512",
+    "C:\\Users\\priyank.jakharia\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

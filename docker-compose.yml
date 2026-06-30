@@ -1,0 +1,72 @@
+version: '3.8'
+ 
+services:
+ 
+  mysql:
+    image: docker-registry-002.zeuslearning.com/zeuslearning/mysql:8.0.15
+    container_name: mysql
+    restart: unless-stopped
+    command: --innodb-use-native-aio=0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TraineeManagement
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql # <-- 1. MAPS STORAGE TO THE NAMED VOLUME
+
+  redis:
+    image: docker-registry-002.zeuslearning.com/zeuslearning/redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+ 
+  rabbitmq:
+    image: docker-registry-002.zeuslearning.com/zeuslearning/rabbitmq:3.13.7-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+ 
+  trainingdirectory:
+    image: directoryapi:latest  
+    build:
+      context: .
+      dockerfile: TrainingDirectory.API/Dockerfile
+    container_name: trainingdirectory
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+ 
+  traineemanagement-api:
+    image: traineeapi:latest
+    build:
+      context: .
+      dockerfile: TraineeManagement.Api/Dockerfile
+    restart: unless-stopped
+    container_name: trainee-api
+    depends_on:
+      - mysql
+      - redis
+      - rabbitmq
+      - trainingdirectory
+    ports:
+      - "7200:8080"
+ 
+  worker:
+    image: workerapi:latest
+    build:
+      context: .
+      dockerfile: TraineeManagement.WORKER/Dockerfile
+    container_name: trainee-worker
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+      - mysql
+      - trainingdirectory
+
+# <-- 2. DECLARE THE NAMED VOLUME AT THE ROOT LEVEL
+volumes:
+  mysql_data:
