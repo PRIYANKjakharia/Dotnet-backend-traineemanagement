@@ -10,11 +10,10 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("dotnet-TraineeManagement.WORKER-95aa4cc3-5384-4849-a7d3-a9810c3a9a49")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("TraineeManagement.WORKER")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae52895d4869d7191b4c2975fc58b8bbd00db232")]
 [assembly: System.Reflection.AssemblyProductAttribute("TraineeManagement.WORKER")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TraineeManagement.WORKER")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

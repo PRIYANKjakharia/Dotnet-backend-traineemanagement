@@ -3,70 +3,77 @@ version: '3.8'
 services:
  
   mysql:
-    image: docker-registry-002.zeuslearning.com/zeuslearning/mysql:8.0.15
+    image: docker-registry-002.zeuslearning.com/zeuslearning/mysql:latest 
     container_name: mysql
-    restart: unless-stopped
-    command: --innodb-use-native-aio=0
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: TraineeManagement
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql # <-- 1. MAPS STORAGE TO THE NAMED VOLUME
+      - mysql_data:/var/lib/mysql
+    restart: always
 
   redis:
-    image: docker-registry-002.zeuslearning.com/zeuslearning/redis:7-alpine
+    image: docker-registry-002.zeuslearning.com/zeuslearning/redis:latest 
     container_name: redis
-    restart: unless-stopped
     ports:
       - "6379:6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
  
   rabbitmq:
-    image: docker-registry-002.zeuslearning.com/zeuslearning/rabbitmq:3.13.7-management
+    image: docker-registry-002.zeuslearning.com/zeuslearning/rabbitmq:latest
     container_name: rabbitmq
-    restart: unless-stopped
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
  
   trainingdirectory:
-    image: directoryapi:latest  
-    build:
-      context: .
-      dockerfile: TrainingDirectory.API/Dockerfile
+    image: directoryapi
     container_name: trainingdirectory
-    restart: unless-stopped
+    build:
+      context: ./TrainingDirectory.API
+      dockerfile: Dockerfile
+    restart: on-failure
     ports:
-      - "5050:5050"
+      - "5050:8080"
  
   traineemanagement-api:
-    image: traineeapi:latest
+    image: traineeapi
+    container_name: trainee-api
     build:
       context: .
       dockerfile: TraineeManagement.Api/Dockerfile
-    restart: unless-stopped
-    container_name: trainee-api
+    restart: on-failure
     depends_on:
       - mysql
-      - redis
-      - rabbitmq
-      - trainingdirectory
     ports:
-      - "7200:8080"
+      - "8080:8080"
  
   worker:
-    image: workerapi:latest
+    image: workerapi
+    container_name: trainee-worker
     build:
       context: .
       dockerfile: TraineeManagement.WORKER/Dockerfile
-    container_name: trainee-worker
-    restart: unless-stopped
+    restart: on-failure
     depends_on:
-      - rabbitmq
-      - mysql
-      - trainingdirectory
+      rabbitmq:
+        condition: service_healthy
 
-# <-- 2. DECLARE THE NAMED VOLUME AT THE ROOT LEVEL
 volumes:
   mysql_data:

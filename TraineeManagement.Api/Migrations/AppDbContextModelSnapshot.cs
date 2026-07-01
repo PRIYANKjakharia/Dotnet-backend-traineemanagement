@@ -16,7 +16,7 @@ namespace TraineeManagement.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.8")
+                .HasAnnotation("ProductVersion", "10.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("TraineeManagement.API.Models.LearningTask", b =>
@@ -374,7 +374,7 @@ namespace TraineeManagement.Api.Migrations
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
-                            PasswordHash = "$2a$11$Ep0y99EykDJxrAeG6PGOEeoo0DlI6YR.TMDRbTHZjm8Uaya4AeyHi",
+                            PasswordHash = "$2a$11$xdAQFzvFiShF02XYvFbP7OVWw/iESi/sAo8YLGxjv2Px0/259lqZO",
                             Role = "admin",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin"

@@ -10,6 +10,8 @@ using System.Globalization;
 using TraineeManagement.API.Interfaces;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using TraineeManagement.API.Extensions;
+using Polly;
+using Polly.CircuitBreaker;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +25,22 @@ builder.Services.AddHttpClient("TrainingDirectoryService", client =>
     client.Timeout = TimeSpan.FromSeconds(5);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 })
-.AddStandardResilienceHandler();
+.AddResilienceHandler("circuit-breaker", builder =>
+{
+    builder.AddCircuitBreaker(new HttpCircuitBreakerOptions
+    {
+        // The failure ratio required to open the circuit (e.g., 50%)
+        FailureRatio = 0.5,
+
+        // Minimum number of requests to process before enforcing the breaker
+        SamplingDuration = TimeSpan.FromSeconds(10),
+
+        // Duration the circuit remains open before entering Half-Open
+        BreakDuration = TimeSpan.FromSeconds(30),
+
+        MinimumThroughput = 10
+    });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -116,44 +133,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// =========================================================
-// FIXED: RESILIENT AUTO-MIGRATION
-// =========================================================
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    var context = services.GetRequiredService<AppDbContext>();
-
-    // Retry up to 6 times (spanning 30 seconds) to ensure MySQL is ready for traffic
-    for (int retry = 1; retry <= 6; retry++)
-    {
-        try
-        {
-            logger.LogInformation("Applying migrations to containerized database (Attempt {Attempt}/6)...", retry);
-            context.Database.Migrate();
-            logger.LogInformation("Database migrations and schema updates applied successfully!");
-            break; // Break loop on successful execution
-        }
-        catch (Exception ex)
-        {
-            logger.LogWarning("Migration attempt {Attempt} failed: {Message}", retry, ex.Message);
-            
-            if (retry == 6)
-            {
-                logger.LogError(ex, "FATAL: Could not migrate database after 6 attempts. Halting application execution.");
-                throw; // Crash container cleanly so Docker Compose knows it is broken
-            }
-            
-            System.Threading.Thread.Sleep(5000); // Sleep for 5 seconds before next poll
-        }
-    }
-}
-// =========================================================
-
- 
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -188,5 +167,41 @@ app.MapControllers();
 
 app.UseCors(MyAllowSpecificOrigins);
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    var context = services.GetRequiredService<AppDbContext>();
+
+    // Try up to 5 times with a delay to allow MySQL time to boot up completely
+    for (int i = 0; i < 5; i++)
+    {
+        try
+        {
+            logger.LogInformation("Attempting to apply database migrations (Attempt {Attempt}/5)...", i + 1);
+            context.Database.Migrate();
+            logger.LogInformation("Database migrations applied successfully!");
+            break; // Exit loop if migration succeeds
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning("Database not ready yet. Retrying in 5 seconds...");
+            if (i == 4) // If it fails on the final attempt, log the hard error
+            {
+                logger.LogError(ex, "An error occurred while migrating the database after multiple attempts.");
+            }
+            System.Threading.Thread.Sleep(5000); // Wait 5 seconds before trying again
+        }
+    }
+}
+ 
+
 app.Run();
 
+internal class HttpCircuitBreakerOptions : CircuitBreakerStrategyOptions<HttpResponseMessage>
+{
+    public double FailureRatio { get; set; }
+    public TimeSpan SamplingDuration { get; set; }
+    public TimeSpan BreakDuration { get; set; }
+    public int MinimumThroughput { get; set; }
+}

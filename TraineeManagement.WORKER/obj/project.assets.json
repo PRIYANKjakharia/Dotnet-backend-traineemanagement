@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net10.0": {
       "AspNetCore.HealthChecks.Rabbitmq/9.0.0": {
@@ -6121,34 +6121,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\priyank.jakharia\\.nuget\\packages\\": {}
+    "/home/priyank/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\TraineeManagement.WORKER.csproj",
+      "projectUniqueName": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/TraineeManagement.WORKER.csproj",
       "projectName": "TraineeManagement.WORKER",
-      "projectPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\TraineeManagement.WORKER.csproj",
-      "packagesPath": "C:\\Users\\priyank.jakharia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\obj\\",
+      "projectPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/TraineeManagement.WORKER.csproj",
+      "packagesPath": "/home/priyank/.nuget/packages/",
+      "outputPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\NuGet.Config",
-        "C:\\Users\\priyank.jakharia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/nuget.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "https://zeuslearning-824100177805.d.codeartifact.ap-south-1.amazonaws.com/nuget/training-nuget-store/v3/index.json": {}
+        "/usr/lib/dotnet/library-packs": {}
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.Api\\TraineeManagement.Api.csproj": {
-              "projectPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.Api\\TraineeManagement.Api.csproj"
+            "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.Api/TraineeManagement.Api.csproj": {
+              "projectPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.Api/TraineeManagement.Api.csproj"
             }
           }
         }
@@ -6163,11 +6161,10 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
@@ -6203,7 +6200,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.109/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
