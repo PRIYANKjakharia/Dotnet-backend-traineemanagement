@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "AspNetCore.HealthChecks.Rabbitmq/9.0.0": {
@@ -6121,32 +6121,34 @@
     ]
   },
   "packageFolders": {
-    "/home/priyank/.nuget/packages/": {}
+    "C:\\Users\\priyank.jakharia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/TraineeManagement.WORKER.csproj",
+      "projectUniqueName": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\TraineeManagement.WORKER.csproj",
       "projectName": "TraineeManagement.WORKER",
-      "projectPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/TraineeManagement.WORKER.csproj",
-      "packagesPath": "/home/priyank/.nuget/packages/",
-      "outputPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/obj/",
+      "projectPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\TraineeManagement.WORKER.csproj",
+      "packagesPath": "C:\\Users\\priyank.jakharia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.WORKER\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.WORKER/nuget.config"
+        "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\NuGet.Config",
+        "C:\\Users\\priyank.jakharia\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {}
+        "https://zeuslearning-824100177805.d.codeartifact.ap-south-1.amazonaws.com/nuget/training-nuget-store/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.Api/TraineeManagement.Api.csproj": {
-              "projectPath": "/mnt/c/Users/priyank.jakharia/Desktop/Tasks/day3/TraineeManagement.Api/TraineeManagement.Api.csproj"
+            "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.Api\\TraineeManagement.Api.csproj": {
+              "projectPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TraineeManagement.Api\\TraineeManagement.Api.csproj"
             }
           }
         }
@@ -6161,10 +6163,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
@@ -6200,7 +6203,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.109/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -6477,5 +6480,13 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://zeuslearning-824100177805.d.codeartifact.ap-south-1.amazonaws.com/nuget/training-nuget-store/v3/index.json."
+    }
+  ]
 }

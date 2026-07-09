@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using TraineeManagement.API.Extensions;
 using Polly;
 using Polly.CircuitBreaker;
+using Microsoft.Extensions.Http.Resilience;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,7 @@ builder.Services.AddHttpClient("TrainingDirectoryService", client =>
 })
 .AddResilienceHandler("circuit-breaker", builder =>
 {
-    builder.AddCircuitBreaker(new HttpCircuitBreakerOptions
+    builder.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions
     {
         // The failure ratio required to open the circuit (e.g., 50%)
         FailureRatio = 0.5,
@@ -197,11 +198,3 @@ using (var scope = app.Services.CreateScope())
  
 
 app.Run();
-
-internal class HttpCircuitBreakerOptions : CircuitBreakerStrategyOptions<HttpResponseMessage>
-{
-    public double FailureRatio { get; set; }
-    public TimeSpan SamplingDuration { get; set; }
-    public TimeSpan BreakDuration { get; set; }
-    public int MinimumThroughput { get; set; }
-}

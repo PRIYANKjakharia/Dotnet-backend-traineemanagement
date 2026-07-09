@@ -1,11 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "y4T6oOV2BeM=",
+  "dgSpecHash": "NMPdWlXs6PY=",
   "success": true,
   "projectFilePath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TrainingDirectory.API\\TrainingDirectory.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\priyank.jakharia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.8\\microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512",
     "C:\\Users\\priyank.jakharia\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://zeuslearning-824100177805.d.codeartifact.ap-south-1.amazonaws.com/nuget/training-nuget-store/v3/index.json.",
+      "projectPath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TrainingDirectory.API\\TrainingDirectory.API.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\priyank.jakharia\\Desktop\\Tasks\\day3\\TrainingDirectory.API\\TrainingDirectory.API.csproj",
+      "targetGraphs": []
+    }
+  ]
 }
