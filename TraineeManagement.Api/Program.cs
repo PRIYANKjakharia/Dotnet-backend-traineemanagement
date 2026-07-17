@@ -113,11 +113,11 @@ builder.Services.AddSingleton(sp =>
  
     return new RabbitMQ.Client.ConnectionFactory
     {
-        HostName = rabbitMqSection["Host"] ?? "localhost",
-        Port = int.Parse(rabbitMqSection["Port"] ?? "5672"),
-        UserName = rabbitMqSection["UserName"] ?? "guest",
-        Password = rabbitMqSection["Password"] ?? "guest",
-        VirtualHost = rabbitMqSection["VirtualHost"] ?? "/"
+        HostName = rabbitMqSection["Host"]!,
+        Port = int.Parse(rabbitMqSection["Port"]!),
+        UserName = rabbitMqSection["UserName"]! ,
+        Password = rabbitMqSection["Password"]! ,
+        VirtualHost = rabbitMqSection["VirtualHost"]!
     };
 });
  

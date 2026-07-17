@@ -1,0 +1,94 @@
+version: '3.8'
+ 
+services:
+ 
+  mysql:
+    image: mysql image name
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your DB_PASSWORD
+      MYSQL_DATABASE: your DB_NAME
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  redis:
+    image: redis image name
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+ 
+  rabbitmq:
+    image: rabbitmq image name
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: your RABBITMQ_USERNAME
+      RABBITMQ_DEFAULT_PASS: your RABBITMQ_PASSWORD
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+ 
+  trainingdirectory:
+    image: directoryapi image name
+    container_name: trainingdirectory
+    build:
+      context: ./TrainingDirectory.API
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "5050:8080"
+ 
+  traineemanagement-api:
+    image: traineeapi image name
+    container_name: trainee-api
+    build:
+      context: .
+      dockerfile: TraineeManagement.Api/Dockerfile
+    restart: on-failure
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      DB_SERVER: your DB_SERVER
+      DB_PORT: your DB_PORT
+      DB_NAME: your DB_NAME
+      DB_USER: your DB_USER
+      DB_PASSWORD: your DB_PASSWORD
+      JWT_KEY: your JWT_KEY
+      JWT_ISSUER: your JWT_ISSUER
+      JWT_AUDIENCE: your JWT_AUDIENCE
+      REDIS_CONNECTION: your REDIS_CONNECTION
+      RABBITMQ_HOST: your RABBITMQ_HOST
+      RABBITMQ_PORT: your RABBITMQ_PORT
+      RABBITMQ_USERNAME: your RABBITMQ_USERNAME
+      RABBITMQ_PASSWORD: your RABBITMQ_PASSWORD
+      RABBITMQ_VHOST: your RABBITMQ_VHOST
+ 
+  worker:
+    image: workerapi image name
+    container_name: trainee-worker
+    build:
+      context: .
+      dockerfile: TraineeManagement.WORKER/Dockerfile
+    restart: on-failure
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

@@ -1,0 +1,13 @@
+docker-compose.yml
+TraineeManagement.Api/bin
+TraineeManagement.Api/obj
+TraineeManagement.Api/NuGet.config
+TraineeManagement.Api/appsettings.Development.json
+TraineeManagement.WORKER/appsettings.Development.json
+TraineeManagement.WORKER/bin
+TraineeManagement.WORKER/obj
+TrainingDirectory.API/appsettings.Development.json
+TrainingDirectory.API/NuGet.config
+TrainingDirectory.API/bin
+TrainingDirectory.API/obj
+NuGet.config
