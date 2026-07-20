@@ -3,8 +3,10 @@ using TraineeManagement.API.Models;
 namespace TraineeManagement.API.Data;
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    private readonly IConfiguration _configuration;
+    public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
     public DbSet<Trainee> Trainees {get ; set;}
     public DbSet<User> Users {get ; set;}
@@ -19,17 +21,43 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        var adminUsername = _configuration["AdminSettings:Username"];
+        var adminEmail = _configuration["AdminSettings:Email"];
+        var adminPassword = _configuration["AdminSettings:Password"];
   
-  
-        modelBuilder.Entity<User>().HasData(new User
-        {
-            Id=1,
-            Username="admin",
-            Email="admin@gmail.com",
-            PasswordHash=BCrypt.Net.BCrypt.HashPassword("Admin@123"),
-            Role="admin"
-   
-        });
+        var mentorUsername = _configuration["MentorSettings:Username"];
+        var mentorEmail = _configuration["MentorSettings:Email"];
+        var mentorPassword = _configuration["MentorSettings:Password"];
+
+        var traineeUsername = _configuration["TraineeSettings:Username"];
+        var traineeEmail = _configuration["TraineeSettings:Email"];
+        var traineePassword = _configuration["TraineeSettings:Password"];
+
+        modelBuilder.Entity<User>().HasData(
+            new User{
+                Id = 1,
+                Username = adminUsername,
+                Email = adminEmail,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
+                Role = "admin"
+    
+            },
+            new User{
+                Id = 2,
+                Username = mentorUsername,
+                Email = mentorEmail,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(mentorPassword),
+                Role = "mentor"
+            },
+            new User{
+                Id = 3,
+                Username = traineeUsername,
+                Email = traineeEmail,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(traineePassword),
+                Role = "trainee"
+            }
+        );
 
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Trainee).WithMany().HasForeignKey(t=> t.TraineeId);
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Mentor).WithMany().HasForeignKey(t=> t.MentorId);
