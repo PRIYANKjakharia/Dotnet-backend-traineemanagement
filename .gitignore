@@ -6,6 +6,7 @@ TraineeManagement.Api/obj
 TraineeManagement.Api/NuGet.config
 TraineeManagement.Api/Migrations
 TraineeManagement.Api/appsettings.Development.json
+TraineeManagement.Api/appsettings.Production.json
 
 TraineeManagement.WORKER/appsettings.Development.json
 TraineeManagement.WORKER/bin

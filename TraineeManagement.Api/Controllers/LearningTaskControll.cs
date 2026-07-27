@@ -5,7 +5,7 @@ using TraineeManagement.API.Services;
 
 namespace TraineeManagement.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [ApiController]
     [Route("api/learningtasks")]
     public class LearningTaskController : ControllerBase
