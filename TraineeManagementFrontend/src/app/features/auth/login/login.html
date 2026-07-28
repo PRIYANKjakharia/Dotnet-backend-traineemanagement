@@ -33,7 +33,11 @@
         </div>
 
         <br>
+        @if (errorMessage) {
+            <p>{{ errorMessage }}</p>
+        }
 
+        <!-- <p>Error: {{errorMessage}}</p> -->
         <button type="submit">
             Login
         </button>
