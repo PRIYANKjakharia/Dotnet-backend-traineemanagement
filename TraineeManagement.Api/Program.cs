@@ -127,7 +127,7 @@ var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,policy  => {
-        policy.WithOrigins("http://localhost:3000", "http://localhost:5173");
+        policy.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
     });
 });
 
@@ -160,13 +160,14 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions
  
 app.UseHttpsRedirection();
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(MyAllowSpecificOrigins);
 
 using (var scope = app.Services.CreateScope())
 {

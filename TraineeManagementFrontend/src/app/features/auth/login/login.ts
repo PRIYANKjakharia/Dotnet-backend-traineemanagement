@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
+import { LoginRequest } from '../../../shared/models/login-request';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +10,41 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './login.css'
 })
 export class Login {
+
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit(): void{
-    if(this.loginForm.invalid){
+  onSubmit(): void {
+
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      return ;
+      return;
     }
-    console.log(this.loginForm.value);
+
+    const request: LoginRequest = this.loginForm.value as LoginRequest;
+
+    this.authService.login(request).subscribe({
+      next: (response) => {
+
+        console.log(response);
+
+        this.authService.setToken(response.token);
+
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+
   }
+
 }
