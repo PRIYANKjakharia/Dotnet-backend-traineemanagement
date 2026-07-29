@@ -1,0 +1,47 @@
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+}
+
+@if (!loading() && trainees.length === 0) {
+    <p>No trainees found.</p>
+}
+
+@if (trainees.length > 0) {
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Tech Stack</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @for (trainee of trainees; track trainee.id) {
+
+        <tr>
+            <td>{{ trainee.id }}</td>
+            <td>{{ trainee.firstName }}</td>
+            <td>{{ trainee.lastName }}</td>
+            <td>{{ trainee.email }}</td>
+            <td>{{ trainee.techStack }}</td>
+            <td>{{ trainee.status }}</td>
+        </tr>
+
+    }
+
+    </tbody>
+
+</table>
+
+}
