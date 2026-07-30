@@ -4,6 +4,7 @@ import { Dashboard } from './features/dashboard/dashboard/dashboard';
 import { Layout } from './core/layout/layout/layout';
 import { authGuard } from './core/guards/auth-guard';
 import { TraineeList } from './features/trainees/trainee-list/trainee-list';
+import { AddTrainee } from './features/trainees/add-trainee/add-trainee';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,10 @@ export const routes: Routes = [
       },{
         path: 'trainees',
         component: TraineeList
+      },{
+        path: 'trainees/add',
+        component: AddTrainee,
+        canActivate:[authGuard]
       }
     ]
   },

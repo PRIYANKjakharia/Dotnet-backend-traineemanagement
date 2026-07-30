@@ -3,9 +3,10 @@ import { TraineeService } from '../trainee.service';
 import { TraineeQuery } from '../../../shared/models/trainee-query';
 import { Trainee } from '../../../shared/models/trainee';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from "@angular/router";
 @Component({
   selector: 'app-trainee-list',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './trainee-list.html',
   styleUrl: './trainee-list.css'
 })

@@ -1,0 +1,113 @@
+<h2>Add Trainee</h2>
+
+<form [formGroup]="traineeForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label for="firstName">First Name</label>
+        <br>
+        <input
+            id="firstName"
+            type="text"
+            formControlName="firstName">
+
+        @if (traineeForm.get('firstName')?.touched &&
+             traineeForm.get('firstName')?.hasError('required')) {
+            <p>First Name is required.</p>
+        }
+
+        @if (traineeForm.get('firstName')?.touched &&
+             traineeForm.get('firstName')?.hasError('maxlength')) {
+            <p>Maximum 50 characters allowed.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="lastName">Last Name</label>
+        <br>
+        <input
+            id="lastName"
+            type="text"
+            formControlName="lastName">
+
+        @if (traineeForm.get('lastName')?.touched &&
+             traineeForm.get('lastName')?.hasError('required')) {
+            <p>Last Name is required.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="email">Email</label>
+        <br>
+        <input
+            id="email"
+            type="email"
+            formControlName="email">
+
+        @if (traineeForm.get('email')?.touched &&
+             traineeForm.get('email')?.hasError('required')) {
+            <p>Email is required.</p>
+        }
+
+        @if (traineeForm.get('email')?.touched &&
+             traineeForm.get('email')?.hasError('email')) {
+            <p>Enter a valid email.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="techStack">Tech Stack</label>
+        <br>
+        <input
+            id="techStack"
+            type="text"
+            formControlName="techStack">
+
+        @if (traineeForm.get('techStack')?.touched &&
+             traineeForm.get('techStack')?.hasError('required')) {
+            <p>Tech Stack is required.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="status">Status</label>
+        <br>
+        <select
+            id="status"
+            formControlName="status">
+
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+
+        </select>
+
+        @if (traineeForm.get('status')?.touched &&
+             traineeForm.get('status')?.hasError('required')) {
+            <p>Status is required.</p>
+        }
+    </div>
+
+    <br>
+    @if (errorMessage()){
+        <p>{{errorMessage()}}</p>
+    }
+    @if (successMessage()){
+        <p>{{successMessage()}}</p>
+    }
+
+    <button type="submit" [disabled]="loading()">
+        Save
+    </button>
+    <button type="button" (click)="cancel()">
+        Cancel
+    </button>
+
+</form>

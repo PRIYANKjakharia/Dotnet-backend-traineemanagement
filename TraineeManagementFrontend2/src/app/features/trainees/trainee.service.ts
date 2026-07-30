@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { Trainee } from '../../shared/models/trainee';
 import { PagedResponse } from '../../shared/models/paged-resopnse';
 import { TraineeQuery } from '../../shared/models/trainee-query';
+import { CreateTrainee } from '../../shared/models/create-trainee';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,10 @@ export class TraineeService {
       { params }
     );
   }
+  create(request: CreateTrainee): Observable<Trainee> {
+  return this.http.post<Trainee>(
+    `${environment.apiBaseUrl}/trainees`,
+    request
+  );
+}
 }
