@@ -175,7 +175,7 @@ public class TraineeService : ITraineeService
         }
         if (!string.IsNullOrWhiteSpace(query.Status))
         {
-            trainees = trainees.Where(t => t.Status == query.Status);
+            trainees = trainees.Where(t => t.Status != null && t.Status.ToLower() == query.Status!.ToLower());
         }
         int page = query.PageSize * (query.PageNumber-1);
         List<TraineeResponse> ret =  await trainees.Select( t => new TraineeResponse

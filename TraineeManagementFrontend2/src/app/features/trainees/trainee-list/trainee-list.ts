@@ -72,6 +72,8 @@ export class TraineeList implements OnInit {
 
   loadTrainees(): void {
     this.loading.set(true);
+    this.trainees = [];
+    this.errorMessage = '';
     this.traineeService.getAll(this.query).subscribe({
       next: (response) => {
         this.trainees = response.data;

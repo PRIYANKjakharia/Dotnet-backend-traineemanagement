@@ -16,6 +16,6 @@ public class UpdateTraineeRequest
     [Required(ErrorMessage = "TechStack is required")]
     public string? TechStack { get; set; }
     [Required(ErrorMessage = "Status is required")]
-    [AllowedValues("Active", "Inactive",ErrorMessage ="Status must be from Active, Inactive")]
+    [AllowedValues("Active", "Inactive",ErrorMessage ="Status must be from Active / Inactive")]
     public string? Status { get; set; }
 }
