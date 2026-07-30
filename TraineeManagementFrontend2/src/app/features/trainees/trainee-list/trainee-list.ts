@@ -23,8 +23,8 @@ export class TraineeList implements OnInit {
   };
   totalRecords = 0;
   ngOnInit(): void {
-    this.loading.set(true);
-    
+    // this.loading.set(true);
+    this.loadTrainees();
     // this.traineeService.getAll(this.query).subscribe({
       //   next: (response) => {
         // this.zone.run(()=>{
@@ -100,7 +100,7 @@ export class TraineeList implements OnInit {
     }
   }
   nextPage(): void{
-    if(this.query.pageNumber * this.query.pageSize < 10){
+    if(this.query.pageNumber * this.query.pageSize < this.totalRecords){
       this.query.pageNumber++;
       this.loadTrainees();
     }
