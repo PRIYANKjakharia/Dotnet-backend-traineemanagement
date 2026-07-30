@@ -193,7 +193,7 @@ public class TraineeService : ITraineeService
         {
             PageNumber = query.PageNumber,
             PageSize = query.PageSize,
-            TotalRecords = ret.Count,
+            TotalRecords = await trainees.CountAsync(),
             Data = ret
         };
 

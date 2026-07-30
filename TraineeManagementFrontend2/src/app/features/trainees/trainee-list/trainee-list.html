@@ -10,6 +10,52 @@
     <p>No trainees found.</p>
 }
 
+<div>
+    <label for="search">Search:</label>
+
+    <input
+        id="search"
+        type="text"
+        [(ngModel)]="query.search"
+        placeholder="trainee first or last name">
+
+    <button (click)="search()">
+        Search
+    </button>
+</div>
+
+<div>
+    <label for="status">Status:</label>
+
+    <select
+        id="status"
+        [(ngModel)]="query.status"
+        (change)="filterByStatus()">
+
+        <option value="">All</option>
+        <option value="Active">Active</option>
+        <option value="Completed">Completed</option>
+        <option value="Dropped">Dropped</option>
+
+    </select>
+</div>
+
+<br>
+<label for="pageSize">Page Size:</label>
+
+<select
+    id="pageSize"
+    [(ngModel)]="query.pageSize"
+    (change)="changePageSize()">
+
+    <option [ngValue]="2">2</option>
+    <option [ngValue]="10">10</option>
+    <option [ngValue]="20">20</option>
+    <option [ngValue]="50">50</option>
+
+</select>
+<br>
+
 @if (trainees.length > 0) {
 
 <table border="1">
@@ -43,5 +89,27 @@
     </tbody>
 
 </table>
+
+<br>
+
+<button
+    (click)="previousPage()"
+    [disabled]="query.pageNumber === 1">
+
+    Previous
+
+</button>
+
+<span>
+    Page {{ query.pageNumber }}
+</span>
+
+<button
+    (click)="nextPage()"
+    [disabled]="query.pageNumber * query.pageSize >= totalRecords">
+
+    Next
+
+</button>
 
 }

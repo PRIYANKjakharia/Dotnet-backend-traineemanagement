@@ -16,3 +16,8 @@ TrainingDirectory.API/appsettings.Development.json
 TrainingDirectory.API/NuGet.config
 TrainingDirectory.API/bin
 TrainingDirectory.API/obj
+
+
+TraineeManagementFrontend2/node_modules
+TraineeManagementFrontend2/.angular
+TraineeManagementFrontend2/.vscode
