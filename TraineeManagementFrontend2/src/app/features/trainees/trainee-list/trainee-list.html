@@ -71,6 +71,7 @@
             <th>Email</th>
             <th>Tech Stack</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -85,6 +86,7 @@
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.techStack }}</td>
             <td>{{ trainee.status }}</td>
+            <td><button [routerLink]="['/trainees/edit',trainee.id]">Edit</button></td>
         </tr>
 
     }
