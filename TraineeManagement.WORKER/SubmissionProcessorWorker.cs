@@ -18,15 +18,13 @@ public class SubmissionProcessorWorker : BackgroundService
     private readonly ILogger<SubmissionProcessorWorker> _logger;
     private readonly RabbitMqSettings _rabbitSettings;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IServiceScopeFactory _scopeFactory;
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public SubmissionProcessorWorker(ILogger<SubmissionProcessorWorker> logger, IOptions<RabbitMqSettings> rabbitSettings , IServiceScopeFactory scopeFactory , IServiceProvider serviceProvider)
+    public SubmissionProcessorWorker(ILogger<SubmissionProcessorWorker> logger, IOptions<RabbitMqSettings> rabbitSettings , IServiceProvider serviceProvider)
     {
         _logger = logger;
         _rabbitSettings = rabbitSettings.Value;
-        _scopeFactory = scopeFactory;
         _serviceProvider = serviceProvider;
     }
 

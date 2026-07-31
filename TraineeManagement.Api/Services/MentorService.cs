@@ -19,16 +19,15 @@ public class MentorService : IMentorService
 
 
     // create
-    public async Task<MentorResponse> CreateAsync(CreateMentorRequest request)
+    public async Task<MentorResponse?> CreateAsync(CreateMentorRequest request)
     {   
-        var emailExists = await _context.Mentors.FirstOrDefaultAsync(k => k.Email.ToLower() == request.Email.ToLower());
+        var emailExists = await _context.Mentors.FirstOrDefaultAsync(k => k.Email!.ToLower() == request.Email!.ToLower());
         if(emailExists != null){
             _logger.LogCritical("Email already exists");
             return null;
         }
         var mentor = new Mentor
         {
-            // Id = nextId++,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
@@ -38,7 +37,6 @@ public class MentorService : IMentorService
             UpdatedDate = DateTime.UtcNow
 
         };
-        // trainees.Add(mentor);
         await _context.Mentors.AddAsync(mentor);
         await _context.SaveChangesAsync();
         _logger.LogInformation("Mentor Created with email "+request.Email);
@@ -117,7 +115,7 @@ public class MentorService : IMentorService
     public async Task<string> UpdateAsync (int id, UpdateMentorRequest request)
     {
         var t = await _context.Mentors.FindAsync(id);
-        var emailExists = await _context.Mentors.FirstOrDefaultAsync(k => k.Id != id && k.Email.ToLower() == request.Email.ToLower());
+        var emailExists = await _context.Mentors.FirstOrDefaultAsync(k => k.Id != id && k.Email!.ToLower() == request.Email!.ToLower());
         if(emailExists != null){
             _logger.LogCritical("Email already exists");
             return "Email already exists";

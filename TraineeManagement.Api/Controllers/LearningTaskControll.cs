@@ -16,9 +16,9 @@ namespace TraineeManagement.Api.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateLearningTaskRequest T)
+        public async Task<IActionResult> CreateAsync(CreateLearningTaskRequest request)
         {
-            var result = await _service.CreateAsync(T);
+            var result = await _service.CreateAsync(request);
             return Ok(result);
         }
         [HttpGet]
@@ -48,7 +48,7 @@ namespace TraineeManagement.Api.Controllers
             string result = await _service.UpdateAsync(id, request);
             if(result == "Id Not Found")
             {
-                return NotFound( new { meessage = result});
+                return NotFound( new { message = result});
             } 
             return Ok( new{ message = result} );
         }

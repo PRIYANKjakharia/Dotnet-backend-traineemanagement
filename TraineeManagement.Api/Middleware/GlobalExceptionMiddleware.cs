@@ -39,6 +39,10 @@ namespace TraineeManagement.Api.Middleware
             {
                 statusCode = badRequestException.StatusCode;
                 message = badRequestException.Message;
+            }else if (exception is InvalidOperationException invalidOperationException)
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+                message = invalidOperationException.Message;
             }
 
             context.Response.StatusCode = statusCode;

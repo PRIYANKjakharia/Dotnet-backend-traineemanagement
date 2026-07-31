@@ -31,7 +31,6 @@ public class TraineeService : ITraineeService
         }
         var trainee = new Trainee
         {
-            // Id = nextId++,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
@@ -41,7 +40,6 @@ public class TraineeService : ITraineeService
             UpdatedDate = DateTime.UtcNow
 
         };
-        // trainees.Add(trainee);
         await _context.Trainees.AddAsync(trainee);
         await _context.SaveChangesAsync();
 
@@ -71,10 +69,18 @@ public class TraineeService : ITraineeService
             return false;
         }
         _context.Trainees.Remove(t);
-        await _context.SaveChangesAsync();
-        _logger.LogInformation("User with id "+id+" deleted");
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("User with id "+id+" deleted");
+            await _redis.RemoveAsync($"trainee:{id}");
+        }
+        catch (DbUpdateException)
+        {
+            _logger.LogWarning("cannot delete trainee because assignments exist ");
+            throw new InvalidOperationException("cannot delete trainee cuz assignment task exist");
+        }
 
-        await _redis.RemoveAsync($"trainee:{id}");
         return true;
     }
 
@@ -155,18 +161,6 @@ public class TraineeService : ITraineeService
 
     public async Task<PagedResponse<TraineeResponse>> GetAllAsync(TraineeQueryParameters query)
     {
-        // await _redis.SetAsync("test","hello-----------------------------------------------------=====================", TimeSpan.FromMinutes(5));
-        // var value = await _redis.GetAsync<string>("test");
-        // _logger.LogInformation(value);
-
-        // string cacheKey = "trainees:all";
-        // var cachedData =await _redis.GetAsync<PagedResponse<TraineeResponse>>(cacheKey);
-        
-        // if (cachedData != null && string.IsNullOrWhiteSpace(query.Search) && string.IsNullOrWhiteSpace(query.Status))
-        // {
-        //     _logger.LogInformation("GetAll Redis Hit");
-        //     return cachedData;
-        // }
  
         var trainees = _context.Trainees.AsQueryable();
         if (!string.IsNullOrWhiteSpace(query.Search))
@@ -197,7 +191,6 @@ public class TraineeService : ITraineeService
             Data = ret
         };
 
-        // await _redis.SetAsync(cacheKey , res , TimeSpan.FromMinutes(5));
         return res;
     }
 

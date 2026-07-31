@@ -15,12 +15,6 @@ public class CreateTaskAssignmentRequest
     [Required(ErrorMessage = "LearningTaskId is required")]
     public int? LearningTaskId { get; set; }
 
-    // [Required(ErrorMessage = "AssignedDate is required")]
-    // public DateTime? AssignedDate { get; set; }
-
-    // [Required(ErrorMessage = "DueDate is required")]
-    // public DateTime? DueDate { get; set; }
-
     [Required(ErrorMessage = "Status is required")]
     public string? Status { get; set; }
     

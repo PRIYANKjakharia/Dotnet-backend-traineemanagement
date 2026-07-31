@@ -39,7 +39,6 @@ public class ReviewService : IReviewService
             UpdatedDate = DateTime.UtcNow
 
         };
-        // trainees.Add(learningTask);
         await _context.Reviews.AddAsync(review);
         await _context.SaveChangesAsync();
         _logger.LogInformation("task Assigned done with assignmentId "+ review.SubmissionId );

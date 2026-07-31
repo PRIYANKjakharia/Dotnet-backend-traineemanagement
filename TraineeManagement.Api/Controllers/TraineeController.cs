@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TraineeManagement.API.DTOs;
 using TraineeManagement.API.Services;
 
@@ -17,9 +16,9 @@ namespace TraineeManagement.Api.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTraineeRequest T)
+        public async Task<IActionResult> Create(CreateTraineeRequest request)
         {
-            var result = await _service.Create(T);
+            var result = await _service.Create(request);
             if(result == null)
             {
                 return BadRequest(new{ message = "Email already Exists" });
@@ -60,12 +59,5 @@ namespace TraineeManagement.Api.Controllers
             }
             return Ok( new{ message = result} );
         }
-
-        [HttpGet("test")]
-        public IActionResult test ()
-        {
-            throw new Exception("testing exception");
-        }
-
     }
 }

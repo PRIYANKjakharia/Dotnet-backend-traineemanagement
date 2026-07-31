@@ -3,7 +3,6 @@ using TraineeManagement.API.Models;
 using TraineeManagement.API.DTOs;
 using TraineeManagement.API.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using TraineeManagement.API.Interfaces;
 
@@ -79,7 +78,6 @@ public class SubmissionService : ISubmissionService
             return cachedData;
         }
 
-        // .Include(e=>e.Trainee)
         var res = await _context.Submissions.Include(x => x.TaskAssignment).Select(t => new SubmissionResponse
         {
             Id= t.Id,
@@ -88,7 +86,6 @@ public class SubmissionService : ISubmissionService
             Notes = t.Notes,
             Status = t.Status,
             SubmissionDate = t.SubmissionDate,
-            // Trainee = t.Trainee,
         }).ToListAsync();
         _logger.LogInformation("GetAll Redis Miss $$$$$$$$$$$$$$$$");
         await _redis.SetAsync(cacheKey , res , TimeSpan.FromMinutes(5));

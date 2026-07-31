@@ -16,9 +16,9 @@ namespace TraineeManagement.Api.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateReviewRequest T)
+        public async Task<IActionResult> CreateAsync(CreateReviewRequest request)
         {
-            var result = await _service.CreateAsync(T);
+            var result = await _service.CreateAsync(request);
             if(result == null)
             {
                 return BadRequest(new{ message = "Submission or Mentor Id not found" });

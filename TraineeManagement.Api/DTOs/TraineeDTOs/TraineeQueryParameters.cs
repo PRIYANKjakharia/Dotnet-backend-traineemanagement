@@ -7,7 +7,6 @@ public class TraineeQueryParameters{
     public int PageSize{ get; set; } = 10;
     public string? Search { get; set; }
 
-    // [AllowedValues("Active", "Inactive",ErrorMessage ="Status must be from Active / Inactive")]
     public string? Status { get; set; }
  
 }

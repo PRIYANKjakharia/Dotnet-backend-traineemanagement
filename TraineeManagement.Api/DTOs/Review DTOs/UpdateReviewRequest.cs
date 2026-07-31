@@ -17,12 +17,6 @@ public class UpdateReviewRequest
     public string? ReviewStatus { get; set; }
     public int? Score { get; set; }
 
-    // [Required(ErrorMessage = "AssignedDate is required")]
-    // public DateTime? AssignedDate { get; set; }
-
-    // [Required(ErrorMessage = "DueDate is required")]
-    // public DateTime? DueDate { get; set; }
-
     [Required(ErrorMessage = "ReviewedDate is required")]
     public DateTime? ReviewedDate { get; set; }
 }

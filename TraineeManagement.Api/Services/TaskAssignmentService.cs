@@ -48,7 +48,6 @@ public class TaskAssignmentService : ITaskAssignmentService
             UpdatedDate = DateTime.UtcNow
 
         };
-        // trainees.Add(learningTask);
         await _context.TaskAssignments.AddAsync(TaskAssignment);
         await _context.SaveChangesAsync();
         _logger.LogInformation("task Assignment done with AssignedDate "+ TaskAssignment.AssignedDate+" and with DueDate "+TaskAssignment.DueDate);
@@ -107,7 +106,6 @@ public class TaskAssignmentService : ITaskAssignmentService
             return cachedData;
         }
 
-        // .Include(e=>e.Trainee).Include(e=>e.Mentor).Include(e=>e.LearningTask)
         var res = await _context.TaskAssignments.Select(t => new TaskAssignmentResponse
         {
             Id = t.Id,
@@ -158,7 +156,6 @@ public class TaskAssignmentService : ITaskAssignmentService
             DueDate = t.DueDate,
             AssignedDate = t.AssignedDate,
             Status = t.Status,
-            // Trainee = t.Trainee,
             Remarks = t.Remarks,
         };
         await _redis.SetAsync(cacheKey , res , TimeSpan.FromMinutes(5));
@@ -180,7 +177,6 @@ public class TaskAssignmentService : ITaskAssignmentService
 
         t.UpdatedDate = DateTime.UtcNow;
         t.Status = request.Status;
-        // if(request.Remarks != "")t.Remarks = request.Remarks;
         await _context.SaveChangesAsync();
         _logger.LogInformation("learning task Updated with Id "+id);
         var cacheKey = $"taskassignment:{id}";
@@ -196,7 +192,6 @@ public class TaskAssignmentService : ITaskAssignmentService
             DueDate = t.DueDate,
             AssignedDate = t.AssignedDate,
             Status = t.Status,
-            // Trainee = t.Trainee,
             Remarks = t.Remarks,
         };
         await _redis.SetAsync(cacheKey , res , TimeSpan.FromMinutes(5));

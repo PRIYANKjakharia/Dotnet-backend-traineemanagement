@@ -16,9 +16,9 @@ namespace TraineeManagement.Api.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateMentorRequest T)
+        public async Task<IActionResult> CreateAsync(CreateMentorRequest request)
         {
-            var result = await _service.CreateAsync(T);
+            var result = await _service.CreateAsync(request);
             if(result == null)
             {
                 return BadRequest(new{ message = "Email already Exists" });
@@ -52,10 +52,10 @@ namespace TraineeManagement.Api.Controllers
             string result = await _service.UpdateAsync(id, request);
             if(result == "Id Not Found")
             {
-                return NotFound( new { meessage = result});
+                return NotFound( new { message = result});
             } else if(result == "Email already exists")
             {
-                return BadRequest( new { meessage = result});
+                return BadRequest( new { message = result});
             }
             return Ok( new{ message = result} );
         }

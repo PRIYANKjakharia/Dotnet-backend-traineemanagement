@@ -18,7 +18,6 @@ public class LocalFileStorageService : IFileStorageService
             File.Delete(path);
         }
         await Task.CompletedTask;
-        // throw new NotImplementedException();
     }
 
     public async Task<bool> ExistsAsync(string StoredFileName)
@@ -26,7 +25,6 @@ public class LocalFileStorageService : IFileStorageService
         string path = Path.Combine(_rootPath, StoredFileName);
 
         return await Task.FromResult(File.Exists(path));
-        // throw new NotImplementedException();
     }
 
     public async Task<Stream> OpenReadAsync(string StoredFileName)
@@ -35,7 +33,6 @@ public class LocalFileStorageService : IFileStorageService
         Stream stream = new FileStream(path, FileMode.Open , FileAccess.Read);
 
         return await Task.FromResult(stream);
-        // throw new NotImplementedException();
     }
 
     public async Task<string> SaveFileAsync(IFormFile file)
@@ -48,6 +45,5 @@ public class LocalFileStorageService : IFileStorageService
 
         await file.CopyToAsync(stream);
         return StoredFileName;
-        // throw new NotImplementedException();
     }
 }

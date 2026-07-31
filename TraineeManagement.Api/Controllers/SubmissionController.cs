@@ -11,16 +11,14 @@ namespace TraineeManagement.Api.Controllers
     public class SubmissionController : ControllerBase
     {
         private readonly ISubmissionService _service;
-        private readonly IFileStorageService _fileStorageService;
-        public SubmissionController(ISubmissionService service , IFileStorageService fileStorageService)
+        public SubmissionController(ISubmissionService service)
         {
             _service = service;
-            _fileStorageService = fileStorageService;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateSubmissionRequest T)
+        public async Task<IActionResult> CreateAsync(CreateSubmissionRequest request)
         {
-            var result = await _service.CreateAsync(T);
+            var result = await _service.CreateAsync(request);
             if(result == null)
             {
                 return BadRequest(new{ message = "taskId not found" });
@@ -42,17 +40,5 @@ namespace TraineeManagement.Api.Controllers
             return Ok(submission);
         }
 
-
-
-        // [HttpPost("testupload")]
-        // public async Task<IActionResult> TestUpload(IFormFile file)
-        // {
-        //     string fileName = await _fileStorageService.SaveFileAsync(file);
-        //     bool exists = await _fileStorageService.ExistsAsync(fileName);
-        //     return Ok(new{
-        //         StoredName = fileName,
-        //         Exists = exists
-        //     });
-        // }
     }
 }

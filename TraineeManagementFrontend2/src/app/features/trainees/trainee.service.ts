@@ -46,4 +46,9 @@ export class TraineeService {
       request
     );
   }
+  delete(id: number): Observable<{message:string}> {
+    return this.http.delete<{message:string}>(
+      `${environment.apiBaseUrl}/trainees/${id}`
+    );
+  }
 }

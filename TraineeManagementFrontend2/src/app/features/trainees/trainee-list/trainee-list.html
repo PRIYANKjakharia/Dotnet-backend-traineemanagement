@@ -86,7 +86,10 @@
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.techStack }}</td>
             <td>{{ trainee.status }}</td>
-            <td><button [routerLink]="['/trainees/edit',trainee.id]">Edit</button></td>
+            <td>
+                <button [routerLink]="['/trainees/edit',trainee.id]">Edit</button>
+                <button (click)="deleteTrainee(trainee.id)">Delete</button>
+            </td>
         </tr>
 
     }

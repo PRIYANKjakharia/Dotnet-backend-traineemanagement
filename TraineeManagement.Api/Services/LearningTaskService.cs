@@ -33,7 +33,6 @@ public class LearningTaskService : ILearningTaskService
             UpdatedDate = DateTime.UtcNow
 
         };
-        // trainees.Add(learningTask);
         await _context.LearningTasks.AddAsync(learningTask);
         await _context.SaveChangesAsync();
         _logger.LogInformation("learning task Created with DueDate "+request.DueDate);
@@ -128,60 +127,4 @@ public class LearningTaskService : ILearningTaskService
         _logger.LogInformation("learning task Updated with Id "+id);
         return "Updated SucessFully";
     }
-
-
-
-    // search
-    // public async Task<List<LearningTaskResponse>> Search(String search)
-    // {
-    //     var t = await _context.LearningTasks.Where(e=>e.Title==search || e.Description==search || e.DueDate==search || e.ExpectedTechStack==search).Select( e => new LearningTaskResponse
-    //     {
-    //         Id = e.Id,
-    //         Title = e.Title,
-    //         Description = e.Description,
-    //         DueDate = e.DueDate,
-    //         ExpectedTechStack = e.ExpectedTechStack,
-    //         Status = e.Status
-    //     }).ToListAsync();
-
-    //     if(t.Count == 0)
-    //     {
-    //         _logger.LogCritical("Id not found");
-    //         return null;
-    //     }
-    //     _logger.LogInformation("Search Displayed");
-    //     return t;
-    // }
-
-    // public async Task<PagedResponse<LearningTaskResponse>> GetAllAsync()
-    // {
-    //     var mentor = _context.LearningTasks.AsQueryable();
-    // if (!string.IsNullOrWhiteSpace(query.Search))
-    // {
-    //     trainees = trainees.Where(t => t.Title.Contains(query.Search) || t.Description.Contains(query.Search));
-    // }
-    // if (!string.IsNullOrWhiteSpace(query.Status))
-    // {
-    //     trainees = trainees.Where(t => t.Status == query.Status);
-    // }
-    // int page = query.PageSize * (query.PageNumber-1);
-    // List<LearningTaskResponse> ret =  await trainees.Select( t => new LearningTaskResponse
-    // {
-    //     Id = t.Id,
-    //     Title = t.Title,
-    //     Description = t.Description,
-    //     DueDate = t.DueDate,
-    //     ExpectedTechStack = t.ExpectedTechStack,
-    //     Status = t.Status
-    // }).Skip(page).Take(query.PageSize).ToListAsync();
-
-    // _logger.LogInformation("request for page no. "+query.PageNumber+" with page size "+query.PageSize+" fetched and Displayed");
-    //     return new PagedResponse<LearningTaskResponse>
-    //     {
-    //         PageNumber = query.PageNumber,
-    //         PageSize = query.PageSize,
-    //         TotalRecords = ret.Count,
-    //         Data = ret
-    //     };
-    // }
 }
