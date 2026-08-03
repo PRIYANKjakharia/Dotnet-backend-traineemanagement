@@ -1,0 +1,69 @@
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+}
+
+@if (!loading() && mentors.length === 0) {
+    <p>No mentors found.</p>
+}
+
+<br>
+
+<button routerLink="/mentors/add">
+    Add Mentor
+</button>
+
+<br><br>
+
+@if (mentors.length > 0) {
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Expertise</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @for (mentor of mentors; track mentor.id) {
+
+        <tr>
+            <td>{{ mentor.id }}</td>
+            <td>{{ mentor.firstName }}</td>
+            <td>{{ mentor.lastName }}</td>
+            <td>{{ mentor.email }}</td>
+            <td>{{ mentor.expertise }}</td>
+            <td>{{ mentor.status }}</td>
+
+            <td>
+
+                <button [routerLink]="['/mentors/edit', mentor.id]">
+                    Edit
+                </button>
+
+                <button (click)="deleteMentor(mentor.id)">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+    }
+
+    </tbody>
+
+</table>
+
+}

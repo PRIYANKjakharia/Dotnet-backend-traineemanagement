@@ -6,6 +6,9 @@ import { authGuard } from './core/guards/auth-guard';
 import { TraineeList } from './features/trainees/trainee-list/trainee-list';
 import { AddTrainee } from './features/trainees/add-trainee/add-trainee';
 import { EditTrainee } from './features/trainees/edit-trainee/edit-trainee';
+import { MentorList } from './features/mentors/mentor-list/mentor-list';
+import { AddMentor } from './features/mentors/add-mentor/add-mentor';
+import { EditMentor } from './features/mentors/edit-mentor/edit-mentor';
 
 export const routes: Routes = [
   {
@@ -34,7 +37,20 @@ export const routes: Routes = [
       },{
         path: 'trainees/edit/:id',
         component: EditTrainee,
-      }
+      },{
+        path: 'mentors',
+        component: MentorList,
+        canActivate: [authGuard]
+      },{
+        path: 'mentors/add',
+        component: AddMentor,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'mentors/edit/:id',
+        component: EditMentor,
+        canActivate: [authGuard]
+      },
     ]
   },
   {

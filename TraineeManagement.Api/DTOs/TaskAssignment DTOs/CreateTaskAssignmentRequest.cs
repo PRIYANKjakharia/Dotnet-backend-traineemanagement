@@ -17,6 +17,5 @@ public class CreateTaskAssignmentRequest
 
     [Required(ErrorMessage = "Status is required")]
     public string? Status { get; set; }
-    
-    public string Remarks { get; set; }
+    public string? Remarks { get; set; }
 }

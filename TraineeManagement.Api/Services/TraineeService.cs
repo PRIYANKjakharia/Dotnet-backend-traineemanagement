@@ -56,10 +56,6 @@ public class TraineeService : ITraineeService
     }
 
 
-
-
-
-
     // delete
     public async Task<bool> Delete(int id)
     {

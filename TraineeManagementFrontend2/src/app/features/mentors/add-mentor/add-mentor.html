@@ -1,0 +1,129 @@
+<h2>Add Mentor</h2>
+
+<form [formGroup]="mentorForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label for="firstName">First Name</label>
+        <br>
+
+        <input
+            id="firstName"
+            type="text"
+            formControlName="firstName">
+
+        @if (mentorForm.get('firstName')?.touched &&
+             mentorForm.get('firstName')?.hasError('required')) {
+            <p>First Name is required.</p>
+        }
+
+        @if (mentorForm.get('firstName')?.touched &&
+             mentorForm.get('firstName')?.hasError('maxlength')) {
+            <p>Maximum 50 characters allowed.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="lastName">Last Name</label>
+        <br>
+
+        <input
+            id="lastName"
+            type="text"
+            formControlName="lastName">
+
+        @if (mentorForm.get('lastName')?.touched &&
+             mentorForm.get('lastName')?.hasError('required')) {
+            <p>Last Name is required.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="email">Email</label>
+        <br>
+
+        <input
+            id="email"
+            type="email"
+            formControlName="email">
+
+        @if (mentorForm.get('email')?.touched &&
+             mentorForm.get('email')?.hasError('required')) {
+            <p>Email is required.</p>
+        }
+
+        @if (mentorForm.get('email')?.touched &&
+             mentorForm.get('email')?.hasError('email')) {
+            <p>Enter a valid email.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="expertise">Expertise</label>
+        <br>
+
+        <input
+            id="expertise"
+            type="text"
+            formControlName="expertise">
+
+        @if (mentorForm.get('expertise')?.touched &&
+             mentorForm.get('expertise')?.hasError('required')) {
+            <p>Expertise is required.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="status">Status</label>
+        <br>
+
+        <select
+            id="status"
+            formControlName="status">
+
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+
+        </select>
+
+        @if (mentorForm.get('status')?.touched &&
+             mentorForm.get('status')?.hasError('required')) {
+            <p>Status is required.</p>
+        }
+    </div>
+
+    <br>
+
+    @if (errorMessage()) {
+        <p>{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+        <p>{{ successMessage() }}</p>
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Save
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>
