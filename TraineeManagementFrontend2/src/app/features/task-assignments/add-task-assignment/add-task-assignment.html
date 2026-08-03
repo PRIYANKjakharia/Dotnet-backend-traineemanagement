@@ -1,5 +1,7 @@
 <h2>Add Task Assignment</h2>
-
+<!-- if(dropdownsLoaded()){
+    
+} -->
 <form [formGroup]="taskAssignmentForm" (ngSubmit)="onSubmit()">
 
     <label>Trainee</label>
@@ -9,7 +11,7 @@
 
         <option value="">Select Trainee</option>
 
-        @for (trainee of trainees; track trainee.id) {
+        @for (trainee of trainees(); track trainee.id) {
 
             <option [value]="trainee.id">
 
@@ -30,7 +32,7 @@
 
         <option value="">Select Mentor</option>
 
-        @for (mentor of mentors; track mentor.id) {
+        @for (mentor of mentors(); track mentor.id) {
 
             <option [value]="mentor.id">
 
@@ -51,7 +53,7 @@
 
         <option value="">Select Learning Task</option>
 
-        @for (task of learningTasks; track task.id) {
+        @for (task of learningTasks(); track task.id) {
 
             <option [value]="task.id">
 

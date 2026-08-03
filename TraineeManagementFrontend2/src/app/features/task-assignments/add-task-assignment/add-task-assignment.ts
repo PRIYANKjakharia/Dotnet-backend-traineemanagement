@@ -30,13 +30,14 @@ export class AddTaskAssignment implements OnInit {
 
   taskAssignmentForm!: FormGroup;
 
-  trainees: Trainee[] = [];
-  mentors: Mentor[] = [];
-  learningTasks: LearningTask[] = [];
+  trainees = signal<Trainee[]>([]);
+  mentors = signal<Mentor[]>([]);
+  learningTasks = signal<LearningTask[]>([]);
 
   loading = signal(false);
   errorMessage = signal('');
   successMessage = signal('');
+  dropdownsLoaded = signal(false);
 
   ngOnInit(): void {
 
@@ -51,6 +52,7 @@ export class AddTaskAssignment implements OnInit {
     });
 
     this.loadDropdowns();
+    this.dropdownsLoaded.set(true);
 
   }
 
@@ -61,11 +63,16 @@ export class AddTaskAssignment implements OnInit {
       pageSize: 1000,
       search: '',
       status: ''
-    }).subscribe(res => this.trainees = res.data);
+    }).subscribe(res => {
+      this.trainees.set(res.data);
+      console.log("Trainees:" , res.data);
+      // this.trainees =[...res.data];
+    });
 
-    this.mentorService.getAll().subscribe(res => this.mentors = res);
+    this.mentorService.getAll().subscribe(res => this.mentors.set(res));
 
-    this.learningTaskService.getAll().subscribe(res => this.learningTasks = res);
+    this.learningTaskService.getAll().subscribe(res => this.learningTasks.set(res));
+    // this.dropdownsLoaded.set(true);
 
   }
 
