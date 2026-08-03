@@ -16,6 +16,7 @@ public class CreateTaskAssignmentRequest
     public int? LearningTaskId { get; set; }
 
     [Required(ErrorMessage = "Status is required")]
+    [AllowedValues("Assigned", "In-Progress" , "Completed" ,ErrorMessage ="Status must be from Assigned, In-Progress or Completed")]
     public string? Status { get; set; }
     public string? Remarks { get; set; }
 }

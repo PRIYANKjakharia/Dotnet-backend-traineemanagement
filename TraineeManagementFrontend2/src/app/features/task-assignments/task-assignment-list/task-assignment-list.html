@@ -1,0 +1,90 @@
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+}
+
+@if (!loading() && taskAssignments.length === 0) {
+    <p>No Task Assignments found.</p>
+}
+
+<button routerLink="/taskassignments/add">
+    Add Task Assignment
+</button>
+
+<br>
+<br>
+
+@if (taskAssignments.length > 0) {
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>Id</th>
+            <th>Trainee</th>
+            <th>Mentor</th>
+            <th>Learning Task</th>
+            <th>Assigned Date</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @for (assignment of taskAssignments; track assignment.id) {
+
+        <tr>
+
+            <td>{{ assignment.id }}</td>
+
+            <td>{{ assignment.traineeName }}</td>
+
+            <td>{{ assignment.mentorName }}</td>
+
+            <td>{{ assignment.learningTaskTitle }}</td>
+
+            <td>{{ assignment.assignedDate | date:'dd/MM/yyyy' }}</td>
+
+            <td>{{ assignment.dueDate | date:'dd/MM/yyyy' }}</td>
+
+            <td>{{ assignment.status }}</td>
+
+            <td>{{ assignment.remarks }}</td>
+
+            <td>
+
+                <button
+                    [routerLink]="['/taskassignments/edit', assignment.id]">
+
+                    Edit
+
+                </button>
+
+                <button
+                    (click)="deleteTaskAssignment(assignment.id)">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+}

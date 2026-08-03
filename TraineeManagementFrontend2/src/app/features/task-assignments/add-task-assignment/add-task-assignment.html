@@ -1,0 +1,118 @@
+<h2>Add Task Assignment</h2>
+
+<form [formGroup]="taskAssignmentForm" (ngSubmit)="onSubmit()">
+
+    <label>Trainee</label>
+    <br>
+
+    <select formControlName="traineeId">
+
+        <option value="">Select Trainee</option>
+
+        @for (trainee of trainees; track trainee.id) {
+
+            <option [value]="trainee.id">
+
+                {{ trainee.firstName }} {{ trainee.lastName }}
+
+            </option>
+
+        }
+
+    </select>
+
+    <br><br>
+
+    <label>Mentor</label>
+    <br>
+
+    <select formControlName="mentorId">
+
+        <option value="">Select Mentor</option>
+
+        @for (mentor of mentors; track mentor.id) {
+
+            <option [value]="mentor.id">
+
+                {{ mentor.firstName }} {{ mentor.lastName }}
+
+            </option>
+
+        }
+
+    </select>
+
+    <br><br>
+
+    <label>Learning Task</label>
+    <br>
+
+    <select formControlName="learningTaskId">
+
+        <option value="">Select Learning Task</option>
+
+        @for (task of learningTasks; track task.id) {
+
+            <option [value]="task.id">
+
+                {{ task.title }}
+
+            </option>
+
+        }
+
+    </select>
+
+    <br><br>
+
+    <label>Status</label>
+    <br>
+
+    <select formControlName="status">
+        <option value="">Select Status</option>
+        <option value="Assigned">Assigned</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <br><br>
+
+    <label>Remarks</label>
+    <br>
+
+    <textarea
+        rows="4"
+        formControlName="remarks">
+    </textarea>
+
+    <br><br>
+
+    @if(errorMessage()){
+
+        <p>{{errorMessage()}}</p>
+
+    }
+
+    @if(successMessage()){
+
+        <p>{{successMessage()}}</p>
+
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Save
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>

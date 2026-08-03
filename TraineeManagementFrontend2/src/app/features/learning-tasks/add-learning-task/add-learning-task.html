@@ -1,0 +1,156 @@
+<h2>Add Learning Task</h2>
+
+<form [formGroup]="learningTaskForm" (ngSubmit)="onSubmit()">
+
+    <div>
+
+        <label for="title">Title</label>
+
+        <br>
+
+        <input
+            id="title"
+            type="text"
+            formControlName="title">
+
+        @if (learningTaskForm.get('title')?.touched &&
+             learningTaskForm.get('title')?.hasError('required')) {
+
+            <p>Title is required.</p>
+
+        }
+
+        @if (learningTaskForm.get('title')?.touched &&
+             learningTaskForm.get('title')?.hasError('maxlength')) {
+
+            <p>Maximum 100 characters allowed.</p>
+
+        }
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <label for="description">Description</label>
+
+        <br>
+
+        <textarea
+            id="description"
+            rows="4"
+            formControlName="description">
+        </textarea>
+
+        @if (learningTaskForm.get('description')?.touched &&
+             learningTaskForm.get('description')?.hasError('required')) {
+
+            <p>Description is required.</p>
+
+        }
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <label for="expectedTechStack">Expected Tech Stack</label>
+
+        <br>
+
+        <input
+            id="expectedTechStack"
+            type="text"
+            formControlName="expectedTechStack">
+
+        @if (learningTaskForm.get('expectedTechStack')?.touched &&
+             learningTaskForm.get('expectedTechStack')?.hasError('required')) {
+
+            <p>Expected Tech Stack is required.</p>
+
+        }
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <label for="dueDate">Due Date</label>
+
+        <br>
+
+        <input
+            id="dueDate"
+            type="date"
+            formControlName="dueDate">
+
+        @if (learningTaskForm.get('dueDate')?.touched &&
+             learningTaskForm.get('dueDate')?.hasError('required')) {
+
+            <p>Due Date is required.</p>
+
+        }
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <label for="status">Status</label>
+
+        <br>
+
+        <select
+            id="status"
+            formControlName="status">
+
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+
+        </select>
+
+        @if (learningTaskForm.get('status')?.touched &&
+             learningTaskForm.get('status')?.hasError('required')) {
+
+            <p>Status is required.</p>
+
+        }
+
+    </div>
+
+    <br>
+
+    @if (errorMessage()) {
+
+        <p>{{ errorMessage() }}</p>
+
+    }
+
+    @if (successMessage()) {
+
+        <p>{{ successMessage() }}</p>
+
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Save
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>

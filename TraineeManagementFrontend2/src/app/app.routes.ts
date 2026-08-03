@@ -9,6 +9,12 @@ import { EditTrainee } from './features/trainees/edit-trainee/edit-trainee';
 import { MentorList } from './features/mentors/mentor-list/mentor-list';
 import { AddMentor } from './features/mentors/add-mentor/add-mentor';
 import { EditMentor } from './features/mentors/edit-mentor/edit-mentor';
+import { LearningTaskList } from './features/learning-tasks/learning-task-list/learning-task-list';
+import { AddLearningTask } from './features/learning-tasks/add-learning-task/add-learning-task';
+import { EditLearningTask } from './features/learning-tasks/edit-learning-task/edit-learning-task';
+import { TaskAssignmentList } from './features/task-assignments/task-assignment-list/task-assignment-list';
+import { EditTaskAssignment } from './features/task-assignments/edit-task-assignment/edit-task-assignment';
+import { AddTaskAssignment } from './features/task-assignments/add-task-assignment/add-task-assignment';
 
 export const routes: Routes = [
   {
@@ -45,10 +51,33 @@ export const routes: Routes = [
         path: 'mentors/add',
         component: AddMentor,
         canActivate: [authGuard]
-      },
-      {
+      },{
         path: 'mentors/edit/:id',
         component: EditMentor,
+        canActivate: [authGuard]
+      },{
+        path: 'learningtasks',
+        component: LearningTaskList,
+        canActivate: [authGuard]
+      },{
+        path: 'learningtasks/add',
+        component: AddLearningTask,
+        canActivate: [authGuard]
+      },{
+        path: 'learningtasks/edit/:id',
+        component: EditLearningTask,
+        canActivate: [authGuard]
+      },{
+        path: 'taskassignments',
+        component: TaskAssignmentList,
+        canActivate: [authGuard]
+      },{
+        path: 'taskassignments/add',
+        component: AddTaskAssignment,
+        canActivate: [authGuard]
+      },{
+        path: 'taskassignments/edit/:id',
+        component: EditTaskAssignment,
         canActivate: [authGuard]
       },
     ]

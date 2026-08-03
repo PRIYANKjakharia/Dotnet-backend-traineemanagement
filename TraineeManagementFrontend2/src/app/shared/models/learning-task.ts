@@ -4,6 +4,6 @@ export interface LearningTask{
     description: string;
     
     expectedTechStack:string;
-    dueDate: Date;
+    dueDate: string;
     status:string;
 }

@@ -1,0 +1,72 @@
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+}
+
+@if (!loading() && learningTasks.length === 0) {
+    <p>No learning tasks found.</p>
+}
+
+<button routerLink="/learningtasks/add">
+    Add Learning Task
+</button>
+
+<br><br>
+
+@if (learningTasks.length > 0) {
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Expected Tech Stack</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @for(task of learningTasks; track task.id){
+
+        <tr>
+
+            <td>{{task.id}}</td>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.expectedTechStack}}</td>
+            <td>{{task.dueDate | date }}</td>
+            <td>{{task.status}}</td>
+
+            <td>
+
+                <button [routerLink]="['/learningtasks/edit', task.id]">
+                    Edit
+                </button>
+
+                <button (click)="deleteLearningTask(task.id)">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+}

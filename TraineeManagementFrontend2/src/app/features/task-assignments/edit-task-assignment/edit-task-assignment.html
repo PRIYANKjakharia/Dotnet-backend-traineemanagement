@@ -1,0 +1,46 @@
+<h2>Edit Task Assignment</h2>
+
+<form [formGroup]="taskAssignmentForm" (ngSubmit)="onSubmit()">
+
+    <label>Status</label>
+
+    <br>
+
+    <select formControlName="status">
+        <option value="">Select Status</option>
+        <option value="Assigned">Assigned</option>
+        <option value="In-Progress">In-Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <br><br>
+
+    @if (errorMessage()) {
+
+        <p>{{ errorMessage() }}</p>
+
+    }
+
+    @if (successMessage()) {
+
+        <p>{{ successMessage() }}</p>
+
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Update
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>
