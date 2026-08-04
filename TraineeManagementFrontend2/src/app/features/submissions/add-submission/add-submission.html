@@ -1,0 +1,91 @@
+<h2>Add Submission</h2>
+
+<form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+
+    <label>Task Assignment</label>
+    <br>
+
+    <select formControlName="taskAssignmentId">
+
+        <option value="">Select Task Assignment</option>
+
+        @for (assignment of taskAssignments(); track assignment.id) {
+
+            <option [value]="assignment.id">
+
+                {{ assignment.learningTaskTitle }} - {{ assignment.traineeName }}
+
+            </option>
+
+        }
+
+    </select>
+
+    <br><br>
+
+    <label>Submission URL</label>
+    <br>
+
+    <input
+        type="text"
+        formControlName="submissionUrl">
+
+    <br><br>
+
+    <label>Submission Date</label>
+    <br>
+
+    <input
+        type="date"
+        formControlName="submissionDate">
+
+    <br><br>
+
+    <label>Status</label>
+    <br>
+
+    <select formControlName="status">
+
+        <option value="">Select Status</option>
+        <option value="Submitted">Submitted</option>
+        <option value="Pending">Pending</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Notes</label>
+    <br>
+
+    <textarea
+        rows="4"
+        formControlName="notes">
+    </textarea>
+
+    <br><br>
+
+    @if(errorMessage()) {
+        <p>{{ errorMessage() }}</p>
+    }
+
+    @if(successMessage()) {
+        <p>{{ successMessage() }}</p>
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Save
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>

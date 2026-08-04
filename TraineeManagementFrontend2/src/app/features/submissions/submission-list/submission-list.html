@@ -1,0 +1,64 @@
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+}
+
+@if (!loading() && submissions().length === 0) {
+    <p>No Submissions found.</p>
+}
+
+<button routerLink="/submissions/add">
+    Add Submission
+</button>
+
+<br><br>
+
+@if (submissions().length > 0) {
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>Id</th>
+            <th>Task Assignment</th>
+            <th>Submission Url</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Notes</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @for (submission of submissions(); track submission.id) {
+
+        <tr>
+
+            <td>{{ submission.id }}</td>
+
+            <td>{{ submission.taskAssignmentId }}</td>
+
+            <td>{{ submission.submissionUrl }}</td>
+
+            <td>{{ submission.submissionDate | date:'dd/MM/yyyy' }}</td>
+
+            <td>{{ submission.status }}</td>
+
+            <td>{{ submission.notes }}</td>
+
+        </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+}
