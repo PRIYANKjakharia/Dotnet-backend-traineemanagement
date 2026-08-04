@@ -16,5 +16,6 @@ public class UpdateSubmissionRequest
     public DateTime? SubmissionDate { get; set; }
 
     [Required(ErrorMessage = "Status is required")]
+    [AllowedValues("Submitted", "Pending",ErrorMessage ="Status must be from Assigned, Submitted or Pending")]
     public string? Status { get; set; }
 }

@@ -10,6 +10,8 @@ using TraineeManagement.WORKER.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using TraineeManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
+using TraineeManagement.API.Interfaces;
+using StackExchange.Redis;
 
 namespace TraineeManagement.WORKER;
 
@@ -21,7 +23,9 @@ public class SubmissionProcessorWorker : BackgroundService
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public SubmissionProcessorWorker(ILogger<SubmissionProcessorWorker> logger, IOptions<RabbitMqSettings> rabbitSettings , IServiceProvider serviceProvider)
+    // private IRedisCacheService _redis;
+
+    public SubmissionProcessorWorker(ILogger<SubmissionProcessorWorker> logger, IOptions<RabbitMqSettings> rabbitSettings , IServiceProvider serviceProvider )
     {
         _logger = logger;
         _rabbitSettings = rabbitSettings.Value;
@@ -63,6 +67,7 @@ public class SubmissionProcessorWorker : BackgroundService
             {
                 var taskRequest = JsonSerializer.Deserialize<SubmissionProcessingRequested>(messageString);
                 using var scope = _serviceProvider.CreateScope();
+                var redis = scope.ServiceProvider.GetRequiredService<IRedisCacheService>();
                 context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 processingJob = await context.ProcessingJobs.FirstOrDefaultAsync(x => x.CorrelationId == taskRequest!.CorrelationId);
                 
@@ -90,6 +95,8 @@ public class SubmissionProcessorWorker : BackgroundService
                 Console.WriteLine(submission!.Status);
                 submission.Status = "Processing";
                 await context.SaveChangesAsync();
+                await redis.RemoveAsync("submission:all");
+                await redis.RemoveAsync($"submission:{submission.Id}");
                 // throw new Exception("trial ex");
                 Console.WriteLine(submission.Status);
                 if (taskRequest != null)
@@ -107,6 +114,8 @@ public class SubmissionProcessorWorker : BackgroundService
 
                     submission.Status = "Completed";
                     await context.SaveChangesAsync();
+                    await redis.RemoveAsync("submission:all");
+                    await redis.RemoveAsync($"submission:{submission.Id}");
                     Console.WriteLine(submission.Status);
 
                     _logger.LogInformation("Work task completed successfully. Sending Positive Acknowledgment (Ack).");

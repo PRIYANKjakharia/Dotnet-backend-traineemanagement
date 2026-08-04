@@ -15,6 +15,9 @@ import { EditLearningTask } from './features/learning-tasks/edit-learning-task/e
 import { TaskAssignmentList } from './features/task-assignments/task-assignment-list/task-assignment-list';
 import { EditTaskAssignment } from './features/task-assignments/edit-task-assignment/edit-task-assignment';
 import { AddTaskAssignment } from './features/task-assignments/add-task-assignment/add-task-assignment';
+import { UploadFile } from './features/submissions/upload-file/upload-file';
+import { SubmissionList } from './features/submissions/submission-list/submission-list';
+import { AddSubmission } from './features/submissions/add-submission/add-submission';
 
 export const routes: Routes = [
   {
@@ -78,6 +81,18 @@ export const routes: Routes = [
       },{
         path: 'taskassignments/edit/:id',
         component: EditTaskAssignment,
+        canActivate: [authGuard]
+      },{
+        path: 'submissions',
+        component: SubmissionList,
+        canActivate: [authGuard]
+      },{
+        path: 'submissions/add',
+        component: AddSubmission,
+        canActivate: [authGuard]
+      },{
+        path: 'submissions/upload/:id',
+        component: UploadFile,
         canActivate: [authGuard]
       },
     ]

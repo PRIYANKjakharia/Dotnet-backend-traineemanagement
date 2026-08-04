@@ -14,7 +14,8 @@
     Add Submission
 </button>
 
-<br><br>
+<br>
+<br>
 
 @if (submissions().length > 0) {
 
@@ -52,6 +53,7 @@
             <td>{{ submission.status }}</td>
 
             <td>{{ submission.notes }}</td>
+            <td><button [routerLink]="['/submissions/upload' , submission.id]">Upload file</button></td>
 
         </tr>
 

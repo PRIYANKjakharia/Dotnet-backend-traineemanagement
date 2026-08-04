@@ -86,6 +86,8 @@ public class SubmissionService : ISubmissionService
             Notes = t.Notes,
             Status = t.Status,
             SubmissionDate = t.SubmissionDate,
+            TaskTitle = t.TaskAssignment!.LearningTaskTitle,
+            TraineeName = t.TaskAssignment.TraineeName
         }).ToListAsync();
         _logger.LogInformation("GetAll Redis Miss $$$$$$$$$$$$$$$$");
         await _redis.SetAsync(cacheKey , res , TimeSpan.FromMinutes(5));
