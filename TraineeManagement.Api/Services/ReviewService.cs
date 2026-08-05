@@ -63,21 +63,23 @@ public class ReviewService : IReviewService
         
 
         // .Include(e=>e.Trainee)
-        return await _context.Reviews.Include(x => x.TaskAssignment).Select(t => new ReviewResponse
+        return await _context.Reviews.Include(r => r.Mentor).Include(r => r.Submission).Select(r => new ReviewResponse
         {
-            Id = t.Id,
-            SubmissionId = t.SubmissionId,
-            MentorId = t.MentorId,
-            Feedback = t.Feedback,
-            Score = t.Score,
-            ReviewStatus = t.ReviewStatus,
-            ReviewedDate = t.ReviewedDate,
+            Id = r.Id,
+            SubmissionId = r.SubmissionId,
+            MentorId = r.MentorId,
+            Feedback = r.Feedback,
+            Score = r.Score,
+            ReviewStatus = r.ReviewStatus,
+            ReviewedDate = r.ReviewedDate,
+            MentorName = r.Mentor!.FirstName+" "+r.Mentor.LastName,
+            SubmissionUrl = r.Submission!.SubmissionUrl
         }).ToListAsync();
     }
 
     public async Task<ReviewResponse?> GetByIdAsync(int id)
     {
-        var t = await _context.Reviews.FindAsync(id);
+        var t = await _context.Reviews.Include(r => r.Mentor).Include(r => r.Submission).FirstOrDefaultAsync(r => r.Id == id);
         if(t == null){
             _logger.LogCritical("Id not found");
             return null;
@@ -87,11 +89,13 @@ public class ReviewService : IReviewService
         {
             Id = t.Id,
             SubmissionId = t.SubmissionId,
-            MentorId = t.MentorId,
+            MentorId = t.MentorId,  
             Feedback = t.Feedback,
             Score = t.Score,
             ReviewStatus = t.ReviewStatus,
             ReviewedDate = t.ReviewedDate,
+            MentorName = t.Mentor!.FirstName+" "+t.Mentor.LastName,
+            SubmissionUrl = t.Submission!.SubmissionUrl
         };
     }
 

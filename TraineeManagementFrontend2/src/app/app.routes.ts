@@ -18,6 +18,8 @@ import { AddTaskAssignment } from './features/task-assignments/add-task-assignme
 import { UploadFile } from './features/submissions/upload-file/upload-file';
 import { SubmissionList } from './features/submissions/submission-list/submission-list';
 import { AddSubmission } from './features/submissions/add-submission/add-submission';
+import { ReviewList } from './features/reviews/review-list/review-list';
+import { AddReview } from './features/reviews/add-review/add-review';
 
 export const routes: Routes = [
   {
@@ -93,6 +95,14 @@ export const routes: Routes = [
       },{
         path: 'submissions/upload/:id',
         component: UploadFile,
+        canActivate: [authGuard]
+      },{
+        path: 'reviews',
+        component: ReviewList,
+        canActivate: [authGuard]
+      },{
+        path: 'reviews/add',
+        component: AddReview,
         canActivate: [authGuard]
       },
     ]

@@ -1,0 +1,65 @@
+<h2>Reviews</h2>
+
+@if (loading()) {
+    <p>Loading...</p>
+}
+
+@if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+}
+
+<button routerLink="/reviews/add">
+    Add Review
+</button>
+
+<br><br>
+
+@if (!loading() && reviews().length === 0) {
+
+    <p>No Reviews found.</p>
+
+}
+
+@if (reviews().length > 0) {
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>Id</th>
+            <th>Submission</th>
+            <th>Mentor</th>
+            <th>Feedback</th>
+            <th>Score</th>
+            <th>Review Status</th>
+            <th>Reviewed Date</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @for (review of reviews(); track review.id) {
+
+        <tr>
+
+            <td>{{ review.id }}</td>
+            <td>{{ review.submissionUrl }}</td>
+            <td>{{ review.mentorName }}</td>
+            <td>{{ review.feedback }}</td>
+            <td>{{ review.score }}</td>
+            <td>{{ review.reviewStatus }}</td>
+            <td>{{ review.reviewedDate | date:'dd/MM/yyyy' }}</td>
+
+        </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+}

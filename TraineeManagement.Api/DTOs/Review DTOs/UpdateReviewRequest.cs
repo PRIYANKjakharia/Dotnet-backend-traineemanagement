@@ -14,7 +14,10 @@ public class UpdateReviewRequest
     [Required(ErrorMessage = "Feedback is required")]
     public string? Feedback { get; set; }
     [Required(ErrorMessage = "ReviewStatus is required")]
+    [AllowedValues("Accepted", "Rejected", ErrorMessage = "ReviewStatus must be Accepted or Rejected")]
     public string? ReviewStatus { get; set; }
+    
+    [Range(0,100,ErrorMessage ="Score must be between 0 to 100")]
     public int? Score { get; set; }
 
     [Required(ErrorMessage = "ReviewedDate is required")]

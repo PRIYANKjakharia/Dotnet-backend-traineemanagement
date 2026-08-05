@@ -1,0 +1,175 @@
+<h2>Add Review</h2>
+
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+
+    <label>Submission</label>
+    <br>
+
+    <select formControlName="submissionId">
+
+        <option value="">Select Submission</option>
+
+        @for(submission of submissions(); track submission.id){
+
+            <option [value]="submission.id">
+
+                {{submission.taskTitle}} - {{submission.traineeName}}
+
+            </option>
+
+        }
+
+    </select>
+
+    @if (reviewForm.get('submissionId')?.touched &&
+         reviewForm.get('submissionId')?.hasError('required')) {
+
+        <p>Submission is required.</p>
+
+    }
+
+    <br><br>
+
+    <label>Mentor</label>
+    <br>
+
+    <select formControlName="mentorId">
+
+        <option value="">Select Mentor</option>
+
+        @for(mentor of mentors(); track mentor.id){
+
+            <option [value]="mentor.id">
+
+                {{mentor.firstName}} {{mentor.lastName}}
+
+            </option>
+
+        }
+
+    </select>
+
+    @if (reviewForm.get('mentorId')?.touched &&
+         reviewForm.get('mentorId')?.hasError('required')) {
+
+        <p>Mentor is required.</p>
+
+    }
+
+    <br><br>
+
+    <label>Feedback</label>
+    <br>
+
+    <textarea
+        rows="4"
+        formControlName="feedback">
+    </textarea>
+
+    @if (reviewForm.get('feedback')?.touched &&
+         reviewForm.get('feedback')?.hasError('required')) {
+
+        <p>Feedback is required.</p>
+
+    }
+
+    <br><br>
+
+    <label>Score</label>
+    <br>
+
+    <input
+        type="number"
+        min="0"
+        max="100"
+        formControlName="score">
+
+    @if (reviewForm.get('score')?.touched &&
+        reviewForm.get('score')?.hasError('required')) {
+
+        <p>Score is required.</p>
+
+    }
+
+    @if (reviewForm.get('score')?.touched &&
+         reviewForm.get('score')?.hasError('min')) {
+
+        <p>Score cannot be less than 0.</p>
+
+    }
+
+    @if (reviewForm.get('score')?.touched &&
+         reviewForm.get('score')?.hasError('max')) {
+
+        <p>Score cannot be greater than 100.</p>
+
+    }
+
+    <br><br>
+
+    <label>Review Status</label>
+    <br>
+
+    <select formControlName="reviewStatus">
+
+        <option value="">Select Status</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Rejected">Rejected</option>
+
+    </select>
+    
+
+    @if (reviewForm.get('reviewStatus')?.touched &&
+         reviewForm.get('reviewStatus')?.hasError('required')) {
+
+        <p>Review Status is required.</p>
+
+    }
+
+    <br><br>
+
+    <label>Reviewed Date</label>
+    <br>
+
+    <input
+        type="date"
+        formControlName="reviewedDate">
+
+    @if (reviewForm.get('reviewedDate')?.touched &&
+         reviewForm.get('reviewedDate')?.hasError('required')) {
+
+        <p>Reviewed Date is required.</p>
+
+    }
+
+    <br><br>
+
+    @if(errorMessage()){
+
+        <p>{{errorMessage()}}</p>
+
+    }
+
+    @if(successMessage()){
+
+        <p>{{successMessage()}}</p>
+
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Save
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>
