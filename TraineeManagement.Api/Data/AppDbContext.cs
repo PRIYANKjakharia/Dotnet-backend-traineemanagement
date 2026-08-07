@@ -63,10 +63,10 @@ public class AppDbContext : DbContext
         );
 
         modelBuilder.Entity<Trainee>().HasOne(t => t.User).WithMany().HasForeignKey(t=> t.UserId);
-        modelBuilder.Entity<Trainee>().HasIndex(t => t.User).IsUnique();
+        modelBuilder.Entity<Trainee>().HasIndex(t => t.UserId).IsUnique();
 
         modelBuilder.Entity<Mentor>().HasOne(m=> m.User).WithMany().HasForeignKey(m=> m.UserId);
-        modelBuilder.Entity<Mentor>().HasIndex(m => m.User).IsUnique();
+        modelBuilder.Entity<Mentor>().HasIndex(m => m.UserId).IsUnique();
 
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Trainee).WithMany().HasForeignKey(t=> t.TraineeId);
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Mentor).WithMany().HasForeignKey(t=> t.MentorId);
