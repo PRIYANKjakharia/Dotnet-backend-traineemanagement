@@ -13,6 +13,7 @@ using TraineeManagement.API.Extensions;
 using Polly;
 using Polly.CircuitBreaker;
 using Microsoft.Extensions.Http.Resilience;
+using TraineeManagement.API.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IMentorService , MentorService>();
 builder.Services.AddScoped<ILearningTaskService , LearningTaskService>();
 builder.Services.AddScoped<ITaskAssignmentService , TaskAssignmentService>();
 builder.Services.AddScoped<IAuthService , AuthService>();
+builder.Services.AddScoped<IUserService , UserService>();
 builder.Services.AddScoped<ISubmissionService , SubmissionService>();
 builder.Services.AddScoped<IReviewService , ReviewService>();
 builder.Services.AddScoped<IFileStorageService , LocalFileStorageService>();

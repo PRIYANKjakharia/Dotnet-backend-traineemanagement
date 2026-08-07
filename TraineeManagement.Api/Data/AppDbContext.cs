@@ -26,13 +26,13 @@ public class AppDbContext : DbContext
         var adminEmail = _configuration["AdminSettings:Email"];
         var adminPassword = _configuration["AdminSettings:Password"];
   
-        var mentorUsername = _configuration["MentorSettings:Username"];
-        var mentorEmail = _configuration["MentorSettings:Email"];
-        var mentorPassword = _configuration["MentorSettings:Password"];
+        // var mentorUsername = _configuration["MentorSettings:Username"];
+        // var mentorEmail = _configuration["MentorSettings:Email"];
+        // var mentorPassword = _configuration["MentorSettings:Password"];
 
-        var traineeUsername = _configuration["TraineeSettings:Username"];
-        var traineeEmail = _configuration["TraineeSettings:Email"];
-        var traineePassword = _configuration["TraineeSettings:Password"];
+        // var traineeUsername = _configuration["TraineeSettings:Username"];
+        // var traineeEmail = _configuration["TraineeSettings:Email"];
+        // var traineePassword = _configuration["TraineeSettings:Password"];
 
         modelBuilder.Entity<User>().HasData(
             new User{
@@ -40,24 +40,33 @@ public class AppDbContext : DbContext
                 Username = adminUsername,
                 Email = adminEmail,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
-                Role = "admin"
+                Role = "admin",
+                // CreatedDate = DateTime.UtcNow,
+                // UpdatedDate = DateTime.UtcNow
     
-            },
-            new User{
-                Id = 2,
-                Username = mentorUsername,
-                Email = mentorEmail,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(mentorPassword),
-                Role = "mentor"
-            },
-            new User{
-                Id = 3,
-                Username = traineeUsername,
-                Email = traineeEmail,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(traineePassword),
-                Role = "trainee"
             }
+            // ,
+            // new User{
+            //     Id = 2,
+            //     Username = mentorUsername,
+            //     Email = mentorEmail,
+            //     PasswordHash = BCrypt.Net.BCrypt.HashPassword(mentorPassword),
+            //     Role = "mentor"
+            // },
+            // new User{
+            //     Id = 3,
+            //     Username = traineeUsername,
+            //     Email = traineeEmail,
+            //     PasswordHash = BCrypt.Net.BCrypt.HashPassword(traineePassword),
+            //     Role = "trainee"
+            // }
         );
+
+        modelBuilder.Entity<Trainee>().HasOne(t => t.User).WithMany().HasForeignKey(t=> t.UserId);
+        modelBuilder.Entity<Trainee>().HasIndex(t => t.User).IsUnique();
+
+        modelBuilder.Entity<Mentor>().HasOne(m=> m.User).WithMany().HasForeignKey(m=> m.UserId);
+        modelBuilder.Entity<Mentor>().HasIndex(m => m.User).IsUnique();
 
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Trainee).WithMany().HasForeignKey(t=> t.TraineeId);
         modelBuilder.Entity<TaskAssignment>().HasOne(t=> t.Mentor).WithMany().HasForeignKey(t=> t.MentorId);

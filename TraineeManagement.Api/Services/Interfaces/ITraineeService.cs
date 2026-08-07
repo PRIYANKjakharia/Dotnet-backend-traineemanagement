@@ -10,10 +10,3 @@ public interface ITraineeService
     Task<bool> Delete(int id);
     Task<PagedResponse<TraineeResponse>> GetAllAsync( TraineeQueryParameters query);
 }
-
-
-
-
-
-
-

@@ -11,10 +11,3 @@ public interface IMentorService
     // Task<List<MentorResponse>> Search(String s);
     Task<List<MentorResponse>> GetAllAsync();
 }
-
-
-
-
-
-
-
