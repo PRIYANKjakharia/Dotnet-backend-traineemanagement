@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TraineeManagement.API.DTOs;
 using TraineeManagement.API.Services;
 
 namespace TraineeManagement.Api.Controllers;
 
+[Authorize(Roles ="admin")]
 [ApiController]
 [Route("api/users")]
 public class UserController : ControllerBase

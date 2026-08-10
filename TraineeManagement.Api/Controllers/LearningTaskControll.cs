@@ -5,7 +5,7 @@ using TraineeManagement.API.Services;
 
 namespace TraineeManagement.Api.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     [ApiController]
     [Route("api/learningtasks")]
     public class LearningTaskController : ControllerBase
@@ -15,6 +15,9 @@ namespace TraineeManagement.Api.Controllers
         {
             _service = service;
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateLearningTaskRequest request)
         {
@@ -35,6 +38,9 @@ namespace TraineeManagement.Api.Controllers
             if (Mentor == null) return NotFound( new{ message = "id not found"} );
             return Ok(Mentor);
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -42,6 +48,9 @@ namespace TraineeManagement.Api.Controllers
             if (!success) return NotFound( new{ message = "Id Not Found"} );
             return Ok( new{ message = "deleted sucessfully"} );
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id , UpdateLearningTaskRequest request)
         {

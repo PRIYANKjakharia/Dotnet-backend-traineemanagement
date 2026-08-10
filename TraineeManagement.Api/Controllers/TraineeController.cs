@@ -15,16 +15,19 @@ namespace TraineeManagement.Api.Controllers
         {
             _service = service;
         }
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateTraineeRequest request)
-        {
-            var result = await _service.Create(request);
-            if(result == null)
-            {
-                return BadRequest(new{ message = "Email already Exists" });
-            }
-            return Ok(result);
-        }
+
+
+        // [Authorize(Roles ="admin")]
+        // [HttpPost]
+        // public async Task<IActionResult> Create(CreateTraineeRequest request)
+        // {
+        //     var result = await _service.Create(request);
+        //     if(result == null)
+        //     {
+        //         return BadRequest(new{ message = "Email already Exists" });
+        //     }
+        //     return Ok(result);
+        // }
         [HttpGet]
         public async Task<IActionResult> GetAll( [FromQuery]TraineeQueryParameters query)
         {
@@ -39,6 +42,9 @@ namespace TraineeManagement.Api.Controllers
             if (trainee == null) return NotFound( new{ message = "id not found"} );
             return Ok(trainee);
         }
+
+
+        [Authorize(Roles ="admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -46,6 +52,9 @@ namespace TraineeManagement.Api.Controllers
             if (!success) return NotFound( new{ message = "Id Not Found"} );
             return Ok(new{ message = "Deleted sucessfully"});
         }
+
+
+        [Authorize(Roles ="admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id , UpdateTraineeRequest request)
         {
