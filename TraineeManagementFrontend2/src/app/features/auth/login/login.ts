@@ -45,6 +45,7 @@ export class Login {
         console.log(response);
 
         this.authService.setToken(response.token);
+        this.authService.setRole(response.role);
         this.router.navigate(['/dashboard']);
 
       },

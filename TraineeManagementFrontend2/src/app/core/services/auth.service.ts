@@ -12,12 +12,17 @@ import { LoginResponse } from '../../shared/models/login-response';
 export class AuthService {
 
   private readonly tokenKey = 'token';
+  private readonly roleKey = 'role';
+
   private readonly apiUrl = `${environment.apiBaseUrl}/auth`;
 
   constructor(private http: HttpClient) {}
 
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, request);
+    return this.http.post<LoginResponse>(
+      `${this.apiUrl}/login`,
+      request
+    );
   }
 
   setToken(token: string): void {
@@ -28,8 +33,21 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  setRole(role: string): void {
+    localStorage.setItem(this.roleKey, role);
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem(this.roleKey);
+  }
+
+  isAdmin(): boolean {
+    return this.getRole()?.toLowerCase() === 'admin';
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.roleKey);
   }
 
   isLoggedIn(): boolean {

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { MentorService } from '../mentor.service';
 import { Mentor } from '../../../shared/models/mentor';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-mentor-list',
@@ -12,7 +13,7 @@ import { Mentor } from '../../../shared/models/mentor';
 })
 export class MentorList implements OnInit {
 
-  constructor(private mentorService: MentorService) {}
+  constructor(private mentorService: MentorService , public authService : AuthService) {}
 
   mentors: Mentor[] = [];
 

@@ -55,8 +55,9 @@
 </select>
 <br>
 
-
-<button routerLink="/trainees/add">Add Trainee</button>
+@if(authService.isAdmin()){
+    <button routerLink="/users/create" [queryParams]="{ type: 'mentor' }">Add Trainee</button>
+}
 
 <br>
 @if (trainees.length > 0) {
@@ -71,7 +72,9 @@
             <th>Email</th>
             <th>Tech Stack</th>
             <th>Status</th>
-            <th>Action</th>
+            @if(authService.isAdmin()){
+                <th>Action</th>
+            }
         </tr>
     </thead>
 
@@ -86,10 +89,12 @@
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.techStack }}</td>
             <td>{{ trainee.status }}</td>
-            <td>
-                <button [routerLink]="['/trainees/edit',trainee.id]">Edit</button>
-                <button (click)="deleteTrainee(trainee.id)">Delete</button>
-            </td>
+            @if(authService.isAdmin()){
+                <td>
+                    <button [routerLink]="['/trainees/edit',trainee.id]">Edit</button>
+                    <button (click)="deleteTrainee(trainee.id)">Delete</button>
+                </td>
+            }
         </tr>
 
     }

@@ -4,6 +4,7 @@ import { TraineeQuery } from '../../../shared/models/trainee-query';
 import { Trainee } from '../../../shared/models/trainee';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from "@angular/router";
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-trainee-list',
   imports: [FormsModule, RouterLink],
@@ -12,7 +13,7 @@ import { RouterLink } from "@angular/router";
 })
 export class TraineeList implements OnInit {
   
-  constructor(private traineeService: TraineeService) {}
+  constructor(private traineeService: TraineeService , public authService: AuthService) {}
   trainees: Trainee[] = [];
   loading = signal<boolean>(false);
   errorMessage = '';

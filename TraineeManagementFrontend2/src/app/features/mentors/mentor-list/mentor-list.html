@@ -11,10 +11,11 @@
 }
 
 <br>
-
-<button routerLink="/mentors/add">
-    Add Mentor
-</button>
+@if(authService.isAdmin()){
+    <button routerLink="/users/create" [queryParams]="{ type: 'trainee' }">
+        Add Mentor
+    </button>
+}
 
 <br><br>
 
@@ -30,7 +31,9 @@
             <th>Email</th>
             <th>Expertise</th>
             <th>Status</th>
-            <th>Action</th>
+            @if(authService.isAdmin()){
+                <th>Action</th>
+            }
         </tr>
     </thead>
 
@@ -45,18 +48,19 @@
             <td>{{ mentor.email }}</td>
             <td>{{ mentor.expertise }}</td>
             <td>{{ mentor.status }}</td>
+            @if(authService.isAdmin()){
+                <td>
 
-            <td>
+                    <button [routerLink]="['/mentors/edit', mentor.id]">
+                        Edit
+                    </button>
 
-                <button [routerLink]="['/mentors/edit', mentor.id]">
-                    Edit
-                </button>
+                    <button (click)="deleteMentor(mentor.id)">
+                        Delete
+                    </button>
 
-                <button (click)="deleteMentor(mentor.id)">
-                    Delete
-                </button>
-
-            </td>
+                </td>
+            }
 
         </tr>
 
