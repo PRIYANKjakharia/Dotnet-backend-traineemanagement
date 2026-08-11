@@ -1,0 +1,211 @@
+<h2>
+    Create {{ role === 'mentor' ? 'Mentor' : 'Trainee' }}
+</h2>
+
+
+<!-- @if(userForm){ -->
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label for="username">Username</label>
+        <br>
+
+        <input
+            id="username"
+            type="text"
+            formControlName="username">
+
+        @if (userForm.get('username')?.touched &&
+             userForm.get('username')?.hasError('required')) {
+
+            <p>Username is required.</p>
+        }
+
+        @if (userForm.get('username')?.touched &&
+             userForm.get('username')?.hasError('maxlength')) {
+
+            <p>Maximum 50 characters allowed.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="email">Email</label>
+        <br>
+
+        <input
+            id="email"
+            type="email"
+            formControlName="email">
+
+        @if (userForm.get('email')?.touched &&
+             userForm.get('email')?.hasError('required')) {
+
+            <p>Email is required.</p>
+        }
+
+        @if (userForm.get('email')?.touched &&
+             userForm.get('email')?.hasError('email')) {
+
+            <p>Enter a valid email.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="password">Password</label>
+        <br>
+
+        <input
+            id="password"
+            type="password"
+            formControlName="password">
+
+        @if (userForm.get('password')?.touched &&
+             userForm.get('password')?.hasError('required')) {
+
+            <p>Password is required.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="firstName">First Name</label>
+        <br>
+
+        <input
+            id="firstName"
+            type="text"
+            formControlName="firstName">
+
+        @if (userForm.get('firstName')?.touched &&
+             userForm.get('firstName')?.hasError('required')) {
+
+            <p>First Name is required.</p>
+        }
+
+        @if (userForm.get('firstName')?.touched &&
+             userForm.get('firstName')?.hasError('maxlength')) {
+
+            <p>Maximum 50 characters allowed.</p>
+        }
+    </div>
+
+    <br>
+
+    <div>
+        <label for="lastName">Last Name</label>
+        <br>
+
+        <input
+            id="lastName"
+            type="text"
+            formControlName="lastName">
+
+        @if (userForm.get('lastName')?.touched &&
+             userForm.get('lastName')?.hasError('required')) {
+
+            <p>Last Name is required.</p>
+        }
+
+        @if (userForm.get('lastName')?.touched &&
+             userForm.get('lastName')?.hasError('maxlength')) {
+
+            <p>Maximum 50 characters allowed.</p>
+        }
+    </div>
+
+    <br>
+
+    @if (role === 'mentor') {
+
+        <div>
+            <label for="expertise">Expertise</label>
+            <br>
+
+            <input
+                id="expertise"
+                type="text"
+                formControlName="expertise">
+
+            @if (userForm.get('expertise')?.touched &&
+                 userForm.get('expertise')?.hasError('required')) {
+
+                <p>Expertise is required.</p>
+            }
+        </div>
+
+    } @else {
+
+        <div>
+            <label for="techStack">Tech Stack</label>
+            <br>
+
+            <input
+                id="techStack"
+                type="text"
+                formControlName="techStack">
+
+            @if (userForm.get('techStack')?.touched &&
+                 userForm.get('techStack')?.hasError('required')) {
+
+                <p>Tech Stack is required.</p>
+            }
+        </div>
+
+    }
+
+    <br>
+
+    <div>
+        <label for="status">Status</label>
+        <br>
+
+        <select
+            id="status"
+            formControlName="status">
+
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+
+        </select>
+
+        @if (userForm.get('status')?.touched &&
+             userForm.get('status')?.hasError('required')) {
+
+            <p>Status is required.</p>
+        }
+    </div>
+
+    <br>
+
+    @if (errorMessage()) {
+        <p>{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+        <p>{{ successMessage() }}</p>
+    }
+
+    <button
+        type="submit"
+        [disabled]="loading()">
+
+        Create {{ role === 'mentor' ? 'Mentor' : 'Trainee' }}
+
+    </button>
+
+    <button
+        type="button"
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+</form>
+<!-- } -->

@@ -12,7 +12,7 @@
 
 <br>
 @if(authService.isAdmin()){
-    <button routerLink="/users/create" [queryParams]="{ type: 'trainee' }">
+    <button routerLink='/users/create' [queryParams]="{ role: 'mentor' }">
         Add Mentor
     </button>
 }

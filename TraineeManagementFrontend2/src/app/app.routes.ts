@@ -20,6 +20,7 @@ import { SubmissionList } from './features/submissions/submission-list/submissio
 import { AddSubmission } from './features/submissions/add-submission/add-submission';
 import { ReviewList } from './features/reviews/review-list/review-list';
 import { AddReview } from './features/reviews/add-review/add-review';
+import { CreateUser } from './features/users/create-user/create-user';
 
 export const routes: Routes = [
   {
@@ -103,6 +104,10 @@ export const routes: Routes = [
       },{
         path: 'reviews/add',
         component: AddReview,
+        canActivate: [authGuard]
+      },{
+        path: 'users/create',
+        component: CreateUser,
         canActivate: [authGuard]
       },
     ]
