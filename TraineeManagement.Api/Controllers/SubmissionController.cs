@@ -15,6 +15,9 @@ namespace TraineeManagement.Api.Controllers
         {
             _service = service;
         }
+
+
+        [Authorize(Roles = "trainee")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateSubmissionRequest request)
         {

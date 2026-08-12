@@ -57,28 +57,28 @@ export class MentorList implements OnInit {
 
   }
 
-  deleteMentor(id: number): void {
+  // deleteMentor(id: number): void {
 
-    if (!confirm('Delete this mentor?')) {
-      return;
-    }
+  //   if (!confirm('Delete this mentor?')) {
+  //     return;
+  //   }
 
-    this.mentorService.delete(id).subscribe({
+  //   this.mentorService.delete(id).subscribe({
 
-      next: () => {
+  //     next: () => {
 
-        this.loadMentors();
+  //       this.loadMentors();
 
-      },
+  //     },
 
-      error: () => {
+  //     error: () => {
 
-        alert('Unable to delete mentor.');
+  //       alert('Unable to delete mentor.');
 
-      }
+  //     }
 
-    });
+  //   });
 
-  }
+  // }
 
 }

@@ -92,7 +92,7 @@
             @if(authService.isAdmin()){
                 <td>
                     <button [routerLink]="['/trainees/edit',trainee.id]">Edit</button>
-                    <button (click)="deleteTrainee(trainee.id)">Delete</button>
+                    <!-- <button (click)="deleteTrainee(trainee.id)">Delete</button> -->
                 </td>
             }
         </tr>

@@ -15,6 +15,9 @@ namespace TraineeManagement.Api.Controllers
         {
             _service = service;
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateTaskAssignmentRequest request)
         {
@@ -25,6 +28,8 @@ namespace TraineeManagement.Api.Controllers
             }
             return Ok(result);
         }
+
+        
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -39,6 +44,9 @@ namespace TraineeManagement.Api.Controllers
             if (taskAssignment == null) return NotFound( new{ message = "id not found"} );
             return Ok(taskAssignment);
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -46,6 +54,9 @@ namespace TraineeManagement.Api.Controllers
             if (!success) return NotFound( new{ message = "Id Not Found"} );
             return Ok( new{ message = "deleted sucessfully"} );
         }
+
+
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id , UpdateTaskAssignmentRequest request)
         {

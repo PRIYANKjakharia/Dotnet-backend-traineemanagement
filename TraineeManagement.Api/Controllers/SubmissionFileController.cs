@@ -15,7 +15,7 @@ namespace TraineeManagement.Api.Controllers
             _service = service;
         }
 
-
+        [Authorize(Roles = "trainee")]
         [HttpPost("submissions/{submissionId}/files")]
         public async Task<IActionResult> Upload(int submissionId,IFormFile file)
         {
@@ -34,6 +34,8 @@ namespace TraineeManagement.Api.Controllers
             });
         }
 
+
+        [Authorize(Roles = "trainee,mentor")]
         [HttpGet("submission-files/{id}/download")]
         public async Task<IActionResult> Download(int id)
         {
@@ -46,6 +48,9 @@ namespace TraineeManagement.Api.Controllers
             return File( result.Value.stream , result.Value.contentType , result.Value.fileName);
         }
 
+
+
+        [Authorize(Roles = "trainee")]
         [HttpDelete("submission-files/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

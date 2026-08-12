@@ -109,33 +109,33 @@ export class TraineeList implements OnInit {
       this.loadTrainees();
     }
   }
-  deleteTrainee(id: number): void {
-    if (!confirm('Are you sure you want to delete this trainee?')) {
-      return;
-    }
+  // deleteTrainee(id: number): void {
+  //   if (!confirm('Are you sure you want to delete this trainee?')) {
+  //     return;
+  //   }
 
-    this.loading.set(true);
-    this.errorMessage = '';
+  //   this.loading.set(true);
+  //   this.errorMessage = '';
 
-    this.traineeService.delete(id).subscribe({
+  //   this.traineeService.delete(id).subscribe({
 
-      next: () => {
-        this.loadTrainees();
-      },
+  //     next: () => {
+  //       this.loadTrainees();
+  //     },
 
-      error: (error) => {
-        if(error.status === 400){
-          this.errorMessage = error.error.message ?? 'Delete Failed';
-        } else if (error.status === 404) {
-          this.errorMessage = error.error.message ?? 'Trainee not found';
-        } else {
-          this.errorMessage = 'Something went wrong.';
-        }
+  //     error: (error) => {
+  //       if(error.status === 400){
+  //         this.errorMessage = error.error.message ?? 'Delete Failed';
+  //       } else if (error.status === 404) {
+  //         this.errorMessage = error.error.message ?? 'Trainee not found';
+  //       } else {
+  //         this.errorMessage = 'Something went wrong.';
+  //       }
 
-        this.loading.set(false);
-      }
+  //       this.loading.set(false);
+  //     }
 
-    });
+  //   });
 
-  }
+  // }
 }

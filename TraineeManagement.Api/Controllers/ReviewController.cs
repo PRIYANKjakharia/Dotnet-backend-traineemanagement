@@ -15,6 +15,9 @@ namespace TraineeManagement.Api.Controllers
         {
             _service = service;
         }
+
+
+        [Authorize(Roles = "mentor")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateReviewRequest request)
         {

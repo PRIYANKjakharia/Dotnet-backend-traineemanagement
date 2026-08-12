@@ -41,9 +41,9 @@ export class MentorService {
     );
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete(
-      `${environment.apiBaseUrl}/mentors/${id}`
-    );
-  }
+  // delete(id: number): Observable<any> {
+  //   return this.http.delete(
+  //     `${environment.apiBaseUrl}/mentors/${id}`
+  //   );
+  // }
 }
